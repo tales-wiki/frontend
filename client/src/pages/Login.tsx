@@ -1,29 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
-
-  const handleKakaoLogin = async () => {
-    try {
-      // TODO: 카카오 로그인 API 연동
-      console.log("카카오 로그인 시도");
-      // 성공 시 홈페이지로 이동
-      navigate("/");
-    } catch (error) {
-      console.error("카카오 로그인 실패:", error);
-    }
+  const handleKakaoLogin = () => {
+    const clientId = import.meta.env.VITE_KAKAO_CLIENT_ID;
+    const redirectUri = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid`;
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      // TODO: 구글 로그인 API 연동
-      console.log("구글 로그인 시도");
-      // 성공 시 홈페이지로 이동
-      navigate("/");
-    } catch (error) {
-      console.error("구글 로그인 실패:", error);
-    }
+  const handleGoogleLogin = () => {
+    const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    const redirectUri = import.meta.env.VITE_GOOGLE_REDIRECT_URI;
+    const scope = "email";
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
   };
 
   return (
