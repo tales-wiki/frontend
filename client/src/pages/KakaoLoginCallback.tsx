@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { setLogin } from "../store/slices/authSlice";
 
 const KakaoLoginCallback: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleKakaoLogin = async () => {
@@ -23,6 +26,9 @@ const KakaoLoginCallback: React.FC = () => {
         );
 
         if (response.status === 200) {
+          // 로그인 상태만 true로 설정
+          dispatch(setLogin());
+
           // 로그인 성공 시 홈페이지로 이동
           navigate("/");
         }
@@ -34,7 +40,7 @@ const KakaoLoginCallback: React.FC = () => {
     };
 
     handleKakaoLogin();
-  }, [navigate, searchParams]);
+  }, [navigate, searchParams, dispatch]);
 
   return (
     <div className="h-[calc(100vh-4rem-6rem)] flex items-center justify-center bg-gray-100">

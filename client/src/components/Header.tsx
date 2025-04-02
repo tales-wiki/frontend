@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { setLogout } from "../store/slices/authSlice";
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -18,6 +24,11 @@ const Header: React.FC = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    dispatch(setLogout());
+    navigate("/");
   };
 
   return (
@@ -85,16 +96,25 @@ const Header: React.FC = () => {
               >
                 길드사전
               </Link>
-              <Link
-                to="/login"
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                  isActive("/login")
-                    ? "text-white"
-                    : "text-gray-300 hover:text-white"
-                }`}
-              >
-                로그인
-              </Link>
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200"
+                >
+                  로그아웃
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                    isActive("/login")
+                      ? "text-white"
+                      : "text-gray-300 hover:text-white"
+                  }`}
+                >
+                  로그인
+                </Link>
+              )}
             </div>
           </nav>
 
@@ -131,77 +151,51 @@ const Header: React.FC = () => {
         </div>
 
         {/* 모바일 메뉴 */}
-        <div
-          className={`md:hidden ${
-            isMobileMenuOpen ? "block" : "hidden"
-          } transition-all duration-300 ease-in-out`}
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {/* 모바일 검색바 */}
-            <form onSubmit={handleSearch} className="relative mb-4">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="검색어를 입력하세요..."
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button
-                type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+        {isMobileMenuOpen && (
+          <div className="md:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <Link
+                to="/characters"
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  isActive("/characters")
+                    ? "text-white bg-gray-900"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                인물사전
+              </Link>
+              <Link
+                to="/guild"
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  isActive("/guild")
+                    ? "text-white bg-gray-900"
+                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                }`}
+              >
+                길드사전
+              </Link>
+              {isAuthenticated ? (
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </form>
-
-            {/* 모바일 네비게이션 */}
-            <Link
-              to="/characters"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isActive("/characters")
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white"
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              인물사전
-            </Link>
-            <Link
-              to="/guild"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isActive("/guild")
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white"
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              길드사전
-            </Link>
-            <Link
-              to="/login"
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                isActive("/login")
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white"
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              로그인
-            </Link>
+                  로그아웃
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    isActive("/login")
+                      ? "text-white bg-gray-900"
+                      : "text-gray-300 hover:text-white hover:bg-gray-700"
+                  }`}
+                >
+                  로그인
+                </Link>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

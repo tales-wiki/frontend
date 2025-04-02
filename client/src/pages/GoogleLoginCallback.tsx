@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { setLogin } from "../store/slices/authSlice";
 
 const GoogleLoginCallback: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleGoogleLogin = async () => {
@@ -30,6 +33,9 @@ const GoogleLoginCallback: React.FC = () => {
         );
 
         if (response.status === 200) {
+          // Redux store에 로그인 상태 저장
+          dispatch(setLogin());
+
           // 로그인 성공 시 홈페이지로 이동
           navigate("/");
         }
@@ -41,7 +47,7 @@ const GoogleLoginCallback: React.FC = () => {
     };
 
     handleGoogleLogin();
-  }, [navigate, searchParams]);
+  }, [navigate, searchParams, dispatch]);
 
   return (
     <div className="h-[calc(100vh-4rem-6rem)] flex items-center justify-center bg-gray-100">
