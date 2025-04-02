@@ -31,6 +31,10 @@ const Header: React.FC = () => {
     navigate("/");
   };
 
+  const handleMobileMenuClick = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-gray-800 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,7 +103,7 @@ const Header: React.FC = () => {
               {isAuthenticated ? (
                 <button
                   onClick={handleLogout}
-                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
                 >
                   로그아웃
                 </button>
@@ -156,6 +160,7 @@ const Header: React.FC = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 to="/characters"
+                onClick={handleMobileMenuClick}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   isActive("/characters")
                     ? "text-white bg-gray-900"
@@ -166,6 +171,7 @@ const Header: React.FC = () => {
               </Link>
               <Link
                 to="/guild"
+                onClick={handleMobileMenuClick}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   isActive("/guild")
                     ? "text-white bg-gray-900"
@@ -176,14 +182,18 @@ const Header: React.FC = () => {
               </Link>
               {isAuthenticated ? (
                 <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+                  onClick={() => {
+                    handleLogout();
+                    handleMobileMenuClick();
+                  }}
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 cursor-pointer"
                 >
                   로그아웃
                 </button>
               ) : (
                 <Link
                   to="/login"
+                  onClick={handleMobileMenuClick}
                   className={`block px-3 py-2 rounded-md text-base font-medium ${
                     isActive("/login")
                       ? "text-white bg-gray-900"
