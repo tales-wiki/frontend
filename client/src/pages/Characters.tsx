@@ -9,17 +9,17 @@ const Characters: React.FC = () => {
         <div className="w-full lg:flex-[5]">
           <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-12">
             <div className="flex justify-between items-center mb-5 lg:mb-8">
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">
+              <h2 className="text-2xl lg:text-4xl font-bold text-gray-800">
                 인물사전
               </h2>
               <Link
                 to="/wiki/create"
-                className="bg-gray-700 text-white font-medium py-2 px-4 transition-colors"
+                className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors"
               >
                 작성하기
               </Link>
             </div>
-            <div className="grid grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
               <div>
                 <h3 className="text-s lg:text-s mb-2 bg-gray-700 text-white py-1 px-2 text-left font-semibold">
                   ㄱ
@@ -162,7 +162,7 @@ const Characters: React.FC = () => {
                 </ul>
               </div>
             </div>
-            <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-4">
               <div>
                 <h3 className="text-s lg:text-s mb-2 bg-gray-700 text-white py-1 px-2 text-left font-semibold">
                   a
@@ -424,7 +424,7 @@ const Characters: React.FC = () => {
                 </ul>
               </div>
             </div>
-            <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 mt-4">
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-4">
               <div>
                 <h3 className="text-s lg:text-s mb-2 bg-gray-700 text-white py-1 px-2 text-left font-semibold">
                   0
