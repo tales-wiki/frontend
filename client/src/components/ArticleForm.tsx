@@ -113,7 +113,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
             }}
             onChange={handleEditorChange}
             autofocus={false}
-            hideModeSwitch={true}
+            hideModeSwitch={false}
             toolbarItems={[
               ["heading", "bold", "italic", "strike"],
               ["hr", "quote"],
