@@ -114,10 +114,12 @@ const ArticleView: React.FC = () => {
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* 왼쪽 섹션: 게시글 내용 */}
         <div className="w-full lg:flex-[5]">
-          <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-10">
+          <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
             <div className="mb-2">
               <div className="flex items-center justify-between mb-4">
-                <h1 className="text-3xl font-bold">{article.title}</h1>
+                <h1 className="text-2xl lg:text-4xl font-bold text-gray-800">
+                  {article.title}
+                </h1>
                 <div className="flex gap-2">
                   <button
                     onClick={() => navigate(`/wiki/${id}/edit`)}
