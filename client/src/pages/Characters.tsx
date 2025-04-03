@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CategoryList from "../components/CategoryList";
 import RecentEdits from "../components/RecentEdits";
 import { CategoryItem, categoryService } from "../services/categoryService";
 
-const Characters: React.FC = () => {
+const Characters = () => {
   const [characters, setCharacters] = useState<CategoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 

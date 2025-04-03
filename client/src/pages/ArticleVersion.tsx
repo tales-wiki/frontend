@@ -1,5 +1,5 @@
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleContent from "../components/ArticleContent";
 import RecentEdits from "../components/RecentEdits";
@@ -13,7 +13,7 @@ interface ArticleVersionResponse {
   nickname: string;
 }
 
-const ArticleVersion: React.FC = () => {
+const ArticleVersion = () => {
   const { id, version } = useParams<{ id: string; version: string }>();
   const navigate = useNavigate();
   const [article, setArticle] = useState<ArticleVersionResponse | null>(null);

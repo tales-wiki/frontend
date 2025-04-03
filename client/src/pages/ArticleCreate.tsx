@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ArticleForm from "../components/ArticleForm";
 import { createArticle } from "../services/articleService";
 
-const ArticleCreate: React.FC = () => {
+const ArticleCreate = () => {
   const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");

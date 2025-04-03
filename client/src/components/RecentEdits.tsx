@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
 import { Link } from "react-router-dom";
 
 interface RecentEdit {
@@ -17,7 +16,7 @@ const fetchRecentEdits = async () => {
   return response.data.responses;
 };
 
-const RecentEdits: React.FC = () => {
+const RecentEdits = () => {
   const { data: recentEdits, isLoading } = useQuery<RecentEdit[]>({
     queryKey: ["recentEdits"],
     queryFn: fetchRecentEdits,

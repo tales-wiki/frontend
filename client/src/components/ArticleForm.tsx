@@ -15,9 +15,11 @@ interface ArticleFormProps {
   submitButtonText: string;
   isTitleReadOnly?: boolean;
   category?: string;
+  initialData?: any;
+  isSubmitting?: boolean;
 }
 
-const ArticleForm: React.FC<ArticleFormProps> = ({
+const ArticleForm = ({
   title,
   nickname,
   content,
@@ -29,7 +31,9 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
   submitButtonText,
   isTitleReadOnly = false,
   category,
-}) => {
+  initialData,
+  isSubmitting = false,
+}: ArticleFormProps) => {
   const editorRef = React.useRef<Editor>(null);
   const { handleImageUpload } = useImageUpload();
 

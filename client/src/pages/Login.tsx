@@ -1,6 +1,4 @@
-import React from "react";
-
-const Login: React.FC = () => {
+const Login = () => {
   const handleKakaoLogin = () => {
     const clientId = import.meta.env.VITE_KAKAO_CLIENT_ID;
     const redirectUri = import.meta.env.VITE_KAKAO_REDIRECT_URI;

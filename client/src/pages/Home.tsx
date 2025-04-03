@@ -1,7 +1,6 @@
-import React from "react";
 import RecentEdits from "../components/RecentEdits";
 
-const Home: React.FC = () => {
+const Home = () => {
   return (
     <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">

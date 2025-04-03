@@ -1,6 +1,6 @@
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleContent from "../components/ArticleContent";
 import RecentEdits from "../components/RecentEdits";
@@ -13,7 +13,7 @@ interface Article {
   createdAt: string;
 }
 
-const ArticleView: React.FC = () => {
+const ArticleView = () => {
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

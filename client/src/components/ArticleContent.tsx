@@ -1,6 +1,6 @@
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
 import { Viewer } from "@toast-ui/react-editor";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ArticleContentProps {
   title: string;
@@ -18,7 +18,7 @@ interface TableOfContents {
   level: number;
 }
 
-const ArticleContent: React.FC<ArticleContentProps> = ({
+const ArticleContent = ({
   title,
   content,
   createdAt,
@@ -26,7 +26,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
   showEditButton = true,
   showHistoryButton = true,
   articleId,
-}) => {
+}: ArticleContentProps) => {
   const [toc, setToc] = useState<TableOfContents[]>([]);
 
   const scrollToSection = (id: string) => {

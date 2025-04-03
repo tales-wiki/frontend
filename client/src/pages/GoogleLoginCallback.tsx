@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { authService } from "../services/authService";
 import { setLogin } from "../store/slices/authSlice";
 
-const GoogleLoginCallback: React.FC = () => {
+const GoogleLoginCallback = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();

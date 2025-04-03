@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 interface Item {
@@ -12,11 +11,7 @@ interface CategoryListProps {
   loading: boolean;
 }
 
-const CategoryList: React.FC<CategoryListProps> = ({
-  title,
-  items,
-  loading,
-}) => {
+const CategoryList = ({ title, items, loading }: CategoryListProps) => {
   // 한글 자음으로 시작하는 글자들을 그룹화하는 함수
   const groupByInitial = (items: Item[]) => {
     // 고정된 초성 그룹 생성

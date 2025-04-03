@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RecentEdits from "../components/RecentEdits";
 import { getArticleHistory } from "../services/articleService";
@@ -13,7 +13,7 @@ interface HistoryResponse {
   }[];
 }
 
-const ArticleHistory: React.FC = () => {
+const ArticleHistory = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [history, setHistory] = useState<HistoryResponse | null>(null);

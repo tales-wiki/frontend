@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const NotFound: React.FC = () => {
+const NotFound = () => {
   return (
     <div className="min-h-[calc(100vh-4rem-6rem)] flex items-center justify-center bg-slate-100">
       <div className="text-center px-4">
