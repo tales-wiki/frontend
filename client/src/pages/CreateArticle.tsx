@@ -61,14 +61,14 @@ const CreateArticle: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
+    <div className="container mx-auto py-4 sm:py-6 lg:py-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
-          <h2 className="text-2xl lg:text-4xl font-bold text-gray-800 mb-5 lg:mb-8">
+        <div className="bg-white rounded-none sm:rounded-lg border-t border-b sm:border border-gray-800 p-3 sm:p-5 lg:p-12">
+          <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-5 lg:mb-8">
             {category === "person" ? "인물사전" : "길드사전"} 작성하기
           </h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex space-x-4">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
               <div className="flex-1">
                 <label
                   htmlFor="title"
@@ -81,11 +81,11 @@ const CreateArticle: React.FC = () => {
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-700"
+                  className="w-full px-3 py-2 border border-gray-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-700"
                   required
                 />
               </div>
-              <div className="w-1/4">
+              <div className="w-full sm:w-1/4">
                 <label
                   htmlFor="nickname"
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -97,7 +97,7 @@ const CreateArticle: React.FC = () => {
                   id="nickname"
                   value={nickname}
                   onChange={(e) => setNickname(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-700"
+                  className="w-full px-3 py-2 border border-gray-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-700"
                   required
                 />
               </div>
@@ -114,7 +114,7 @@ const CreateArticle: React.FC = () => {
                   ref={editorRef}
                   initialValue=""
                   previewStyle="vertical"
-                  height="600px"
+                  height="400px"
                   initialEditType="markdown"
                   useCommandShortcut={true}
                   hooks={{
@@ -123,19 +123,19 @@ const CreateArticle: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-end space-x-4">
+            <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
               <button
                 type="button"
                 onClick={() =>
                   navigate(category === "person" ? "/characters" : "/guild")
                 }
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
               >
                 취소
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
               >
                 작성하기
               </button>
