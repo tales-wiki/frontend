@@ -88,20 +88,20 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
               articleId &&
               (showEditButton || showHistoryButton) && (
                 <div className="flex gap-2">
-                  {showEditButton && (
-                    <button
-                      onClick={() => onNavigate(`/wiki/${articleId}/edit`)}
-                      className="bg-slate-700 text-slate-100 text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
-                    >
-                      편집하기
-                    </button>
-                  )}
                   {showHistoryButton && (
                     <button
                       onClick={() => onNavigate(`/wiki/${articleId}/history`)}
-                      className="bg-slate-700 text-slate-100 text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
+                      className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-md hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
                     >
                       편집로그
+                    </button>
+                  )}
+                  {showEditButton && (
+                    <button
+                      onClick={() => onNavigate(`/wiki/${articleId}/edit`)}
+                      className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-slate-100 bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
+                    >
+                      편집하기
                     </button>
                   )}
                 </div>

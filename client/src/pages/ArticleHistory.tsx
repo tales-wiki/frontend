@@ -76,7 +76,7 @@ const ArticleHistory: React.FC = () => {
               </h1>
               <button
                 onClick={() => navigate(`/wiki/${id}`)}
-                className="bg-slate-700 text-slate-100 text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
+                className="px-4 py-2 text-sm font-medium text-slate-100 bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
               >
                 돌아가기
               </button>

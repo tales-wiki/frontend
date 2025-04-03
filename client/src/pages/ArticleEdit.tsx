@@ -54,7 +54,7 @@ const ArticleEdit: React.FC = () => {
   return (
     <div className="container mx-auto py-4 sm:py-6 lg:py-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-none sm:rounded-lg border-t border-b sm:border border-slate-800 p-3 sm:p-5 lg:p-12">
+        <div className="bg-white rounded-lg border-t border-b sm:border border-slate-800 p-3 sm:p-5 lg:p-12">
           <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-slate-800 mb-3 sm:mb-5 lg:mb-8">
             편집하기
           </h2>
