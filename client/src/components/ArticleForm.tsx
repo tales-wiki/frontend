@@ -35,7 +35,11 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
 
   useEffect(() => {
     if (editorRef.current) {
-      editorRef.current.getInstance().setMarkdown(content);
+      const editor = editorRef.current.getInstance();
+      const currentContent = editor.getMarkdown();
+      if (currentContent !== content) {
+        editor.setMarkdown(content);
+      }
     }
   }, [content]);
 
@@ -108,6 +112,15 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
               addImageBlobHook: handleImageUpload,
             }}
             onChange={handleEditorChange}
+            autofocus={false}
+            hideModeSwitch={true}
+            toolbarItems={[
+              ["heading", "bold", "italic", "strike"],
+              ["hr", "quote"],
+              ["ul", "ol", "task", "indent", "outdent"],
+              ["table", "image", "link"],
+              ["code", "codeblock"],
+            ]}
           />
         </div>
       </div>
