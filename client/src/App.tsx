@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import ScrollToTop from "./components/ScrollToTop";
 import { AppRoutes } from "./routes";
 import { store } from "./store";
 
@@ -21,6 +22,7 @@ function App() {
         <Router>
           <Layout>
             <AppRoutes />
+            <ScrollToTop />
           </Layout>
         </Router>
       </Provider>
