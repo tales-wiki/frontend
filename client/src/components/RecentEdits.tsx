@@ -83,7 +83,7 @@ const RecentEdits: React.FC = () => {
       <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
       <div className="space-y-4">
         {recentEdits.map((edit) => (
-          <Link key={edit.id} to={`/wiki/${edit.title}`} className="block">
+          <Link key={edit.id} to={`/wiki/${edit.id}`} className="block">
             <div className="border-b pb-2">
               <p className="text-base font-medium">{edit.title}</p>
               <div className="flex items-center gap-2 mt-1">
