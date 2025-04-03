@@ -126,7 +126,7 @@ const ArticleView: React.FC = () => {
                     편집하기
                   </button>
                   <button
-                    onClick={() => navigate(`/articles/${id}/history`)}
+                    onClick={() => navigate(`/wiki/${id}/history`)}
                     className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
                   >
                     편집로그
