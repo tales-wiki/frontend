@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { memo, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { setLogout } from "../store/slices/authSlice";
 
-const Header = () => {
+const Header = memo(() => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -12,32 +12,45 @@ const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActive = useCallback(
+    (path: string) => {
+      return location.pathname === path;
+    },
+    [location.pathname]
+  );
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: 검색 기능 구현
-    console.log("검색어:", searchQuery);
-  };
+  const handleSearch = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      // TODO: 검색 기능 구현
+      console.log("검색어:", searchQuery);
+    },
+    [searchQuery]
+  );
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(setLogout());
     navigate("/");
-  };
+  }, [dispatch, navigate]);
 
-  const handleMobileMenuClick = () => {
+  const handleMobileMenuClick = useCallback(() => {
     setIsMobileMenuOpen(false);
-  };
+  }, []);
 
-  const handleGoBack = () => {
+  const handleGoBack = useCallback(() => {
     navigate(-1);
-  };
+  }, [navigate]);
+
+  const handleSearchQueryChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(e.target.value);
+    },
+    []
+  );
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-slate-800 shadow-lg z-50">
@@ -85,7 +98,7 @@ const Header = () => {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchQueryChange}
                 placeholder="검색어를 입력하세요..."
                 className="w-full px-4 py-2 rounded-lg bg-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500"
               />
@@ -242,6 +255,6 @@ const Header = () => {
       </div>
     </header>
   );
-};
+});
 
 export default Header;

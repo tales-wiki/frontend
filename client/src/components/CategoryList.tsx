@@ -1,3 +1,4 @@
+import { memo, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 interface Item {
@@ -11,9 +12,9 @@ interface CategoryListProps {
   loading: boolean;
 }
 
-const CategoryList = ({ title, items, loading }: CategoryListProps) => {
+const CategoryList = memo(({ title, items, loading }: CategoryListProps) => {
   // 한글 자음으로 시작하는 글자들을 그룹화하는 함수
-  const groupByInitial = (items: Item[]) => {
+  const groupByInitial = useCallback((items: Item[]) => {
     // 고정된 초성 그룹 생성
     const groups: { [key: string]: Item[] } = {
       ㄱ: [],
@@ -77,10 +78,10 @@ const CategoryList = ({ title, items, loading }: CategoryListProps) => {
     });
 
     return groups;
-  };
+  }, []);
 
   // 한글 자음 추출 함수
-  const getInitial = (char: string) => {
+  const getInitial = useCallback((char: string) => {
     const code = char.charCodeAt(0);
     const CHOSUNG = [
       "ㄱ",
@@ -129,9 +130,16 @@ const CategoryList = ({ title, items, loading }: CategoryListProps) => {
     }
 
     return char;
-  };
+  }, []);
 
-  const groupedItems = groupByInitial(items);
+  const groupedItems = useMemo(
+    () => groupByInitial(items),
+    [items, groupByInitial]
+  );
+
+  const createUrl = useMemo(() => {
+    return title === "인물사전" ? "/wiki/create/person" : "/wiki/create/guild";
+  }, [title]);
 
   if (loading) return <div className="text-center py-4">로딩 중...</div>;
 
@@ -142,9 +150,7 @@ const CategoryList = ({ title, items, loading }: CategoryListProps) => {
           {title}
         </h2>
         <Link
-          to={
-            title === "인물사전" ? "/wiki/create/person" : "/wiki/create/guild"
-          }
+          to={createUrl}
           className="px-4 py-2 text-sm font-medium text-slate-100 bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer whitespace-nowrap"
         >
           작성하기
@@ -236,6 +242,6 @@ const CategoryList = ({ title, items, loading }: CategoryListProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default CategoryList;

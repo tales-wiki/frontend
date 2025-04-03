@@ -1,16 +1,22 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
-import { AppRoutes } from "./routes";
 import { store } from "./store";
+
+const AppRoutes = lazy(() =>
+  import("./routes").then((module) => ({ default: module.AppRoutes }))
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 1, // 1분
-      gcTime: 1000 * 60 * 30, // 30분
+      gcTime: 1000 * 60 * 60, // 1시간
+      retry: 1, // 재시도 횟수 제한
+      refetchOnWindowFocus: false, // 윈도우 포커스시 자동 리페치 비활성화
     },
   },
 });
@@ -21,7 +27,9 @@ function App() {
       <Provider store={store}>
         <Router>
           <Layout>
-            <AppRoutes />
+            <Suspense fallback={<div>Loading...</div>}>
+              <AppRoutes />
+            </Suspense>
             <ScrollToTop />
           </Layout>
         </Router>
