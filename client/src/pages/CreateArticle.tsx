@@ -61,9 +61,9 @@ const CreateArticle: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6 lg:py-8">
+    <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-12">
+        <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
           <h2 className="text-2xl lg:text-4xl font-bold text-gray-800 mb-5 lg:mb-8">
             {category === "person" ? "인물사전" : "길드사전"} 작성하기
           </h2>

@@ -32,7 +32,7 @@ const Guild: React.FC = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-6 lg:py-8">
+    <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* 왼쪽 섹션: 길드 사전 시트 */}
         <div className="w-full lg:flex-[5]">

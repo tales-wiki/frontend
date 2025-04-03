@@ -3,11 +3,11 @@ import RecentEdits from "../components/RecentEdits";
 
 const Home: React.FC = () => {
   return (
-    <div className="container mx-auto px-4 py-6 lg:py-8">
+    <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* 왼쪽 섹션: 안내문 내용 */}
         <div className="w-full lg:flex-[5]">
-          <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-12">
+          <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
             <h2 className="text-3xl lg:text-4xl font-bold mb-5 lg:mb-8 text-gray-800">
               안내문
             </h2>

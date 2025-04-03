@@ -110,11 +110,11 @@ const ArticleView: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 lg:py-8">
+    <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* 왼쪽 섹션: 게시글 내용 */}
         <div className="w-full lg:flex-[5]">
-          <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-10">
+          <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-10">
             <div className="mb-2">
               <div className="flex items-center justify-between mb-4">
                 <h1 className="text-3xl font-bold">{article.title}</h1>
@@ -200,7 +200,7 @@ const ArticleView: React.FC = () => {
 
           {/* 마지막 편집 시간 섹션 */}
           <div className="mt-4">
-            <div className="bg-white rounded-lg border border-gray-800 p-5 lg:px-10 lg:py-7">
+            <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:px-10 lg:py-7">
               <div className="text-gray-600 text-sm">
                 이 문서는{" "}
                 {new Date(article.createdAt)
