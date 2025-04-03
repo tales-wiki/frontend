@@ -13,73 +13,6 @@ interface CategoryListProps {
 }
 
 const CategoryList = memo(({ title, items, loading }: CategoryListProps) => {
-  // 한글 자음으로 시작하는 글자들을 그룹화하는 함수
-  const groupByInitial = useCallback((items: Item[]) => {
-    // 고정된 초성 그룹 생성
-    const groups: { [key: string]: Item[] } = {
-      ㄱ: [],
-      ㄴ: [],
-      ㄷ: [],
-      ㄹ: [],
-      ㅁ: [],
-      ㅂ: [],
-      ㅅ: [],
-      ㅇ: [],
-      ㅈ: [],
-      ㅊ: [],
-      ㅋ: [],
-      ㅌ: [],
-      ㅍ: [],
-      ㅎ: [],
-      A: [],
-      B: [],
-      C: [],
-      D: [],
-      E: [],
-      F: [],
-      G: [],
-      H: [],
-      I: [],
-      J: [],
-      K: [],
-      L: [],
-      M: [],
-      N: [],
-      O: [],
-      P: [],
-      Q: [],
-      R: [],
-      S: [],
-      T: [],
-      U: [],
-      V: [],
-      W: [],
-      X: [],
-      Y: [],
-      Z: [],
-      "0": [],
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": [],
-      "6": [],
-      "7": [],
-      "8": [],
-      "9": [],
-    };
-
-    items.forEach((item) => {
-      const firstChar = item.title.charAt(0);
-      const initial = getInitial(firstChar);
-      if (groups[initial] !== undefined) {
-        groups[initial].push(item);
-      }
-    });
-
-    return groups;
-  }, []);
-
   // 한글 자음 추출 함수
   const getInitial = useCallback((char: string) => {
     const code = char.charCodeAt(0);
@@ -131,6 +64,76 @@ const CategoryList = memo(({ title, items, loading }: CategoryListProps) => {
 
     return char;
   }, []);
+
+  // 한글 자음으로 시작하는 글자들을 그룹화하는 함수
+  const groupByInitial = useCallback(
+    (items: Item[]) => {
+      // 고정된 초성 그룹 생성
+      const groups: { [key: string]: Item[] } = {
+        ㄱ: [],
+        ㄴ: [],
+        ㄷ: [],
+        ㄹ: [],
+        ㅁ: [],
+        ㅂ: [],
+        ㅅ: [],
+        ㅇ: [],
+        ㅈ: [],
+        ㅊ: [],
+        ㅋ: [],
+        ㅌ: [],
+        ㅍ: [],
+        ㅎ: [],
+        A: [],
+        B: [],
+        C: [],
+        D: [],
+        E: [],
+        F: [],
+        G: [],
+        H: [],
+        I: [],
+        J: [],
+        K: [],
+        L: [],
+        M: [],
+        N: [],
+        O: [],
+        P: [],
+        Q: [],
+        R: [],
+        S: [],
+        T: [],
+        U: [],
+        V: [],
+        W: [],
+        X: [],
+        Y: [],
+        Z: [],
+        "0": [],
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": [],
+        "6": [],
+        "7": [],
+        "8": [],
+        "9": [],
+      };
+
+      items.forEach((item) => {
+        const firstChar = item.title.charAt(0);
+        const initial = getInitial(firstChar);
+        if (groups[initial] !== undefined) {
+          groups[initial].push(item);
+        }
+      });
+
+      return groups;
+    },
+    [getInitial]
+  );
 
   const groupedItems = useMemo(
     () => groupByInitial(items),

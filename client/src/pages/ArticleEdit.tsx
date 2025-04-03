@@ -18,7 +18,7 @@ const ArticleEdit: React.FC = () => {
       try {
         const data = await articleService.getArticle(id!);
         setTitle(data.title);
-        setNickname(data.nickname);
+        setNickname("");
         setContent(data.content);
       } catch (error) {
         console.error("글 불러오기 중 오류가 발생했습니다:", error);
