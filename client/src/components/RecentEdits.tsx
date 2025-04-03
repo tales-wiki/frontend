@@ -1,5 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 interface RecentEdit {
@@ -9,26 +10,18 @@ interface RecentEdit {
   createdAt: string;
 }
 
+const fetchRecentEdits = async () => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BACKEND_API_URL}/api/articles/recent-edits`
+  );
+  return response.data.responses;
+};
+
 const RecentEdits: React.FC = () => {
-  const [recentEdits, setRecentEdits] = useState<RecentEdit[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchRecentEdits = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_API_URL}/api/articles/recent-edits`
-        );
-        setRecentEdits(response.data.responses);
-      } catch (error) {
-        console.error("최근 편집 데이터를 가져오는데 실패했습니다:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRecentEdits();
-  }, []);
+  const { data: recentEdits, isLoading } = useQuery<RecentEdit[]>({
+    queryKey: ["recentEdits"],
+    queryFn: fetchRecentEdits,
+  });
 
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
@@ -69,7 +62,7 @@ const RecentEdits: React.FC = () => {
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border border-slate-800 p-5 lg:p-6">
         <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
@@ -82,7 +75,7 @@ const RecentEdits: React.FC = () => {
     <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-6">
       <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
       <div className="space-y-4">
-        {recentEdits.map((edit) => (
+        {recentEdits?.map((edit) => (
           <Link key={edit.id} to={`/wiki/${edit.id}`} className="block">
             <div className="border-b border-slate-400 pb-2">
               <p className="text-base font-medium">{edit.title}</p>
