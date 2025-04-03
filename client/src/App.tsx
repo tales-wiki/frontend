@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import ArticleCreate from "./pages/ArticleCreate";
 import ArticleEdit from "./pages/ArticleEdit";
 import ArticleHistory from "./pages/ArticleHistory";
+import ArticleVersion from "./pages/ArticleVersion";
 import ArticleView from "./pages/ArticleView";
 import Characters from "./pages/Characters";
 import GoogleLoginCallback from "./pages/GoogleLoginCallback";
@@ -36,6 +37,10 @@ function App() {
               <Route path="/wiki/:id" element={<ArticleView />} />
               <Route path="/wiki/:id/edit" element={<ArticleEdit />} />
               <Route path="/wiki/:id/history" element={<ArticleHistory />} />
+              <Route
+                path="/wiki/:id/version/:version"
+                element={<ArticleVersion />}
+              />
             </Routes>
           </main>
           <Footer />

@@ -6,3 +6,12 @@ export const getArticleHistory = async (articleId: string) => {
   );
   return response.data;
 };
+
+export const getArticleVersion = async (articleId: string, version: string) => {
+  const response = await axios.get(
+    `${
+      import.meta.env.VITE_BACKEND_API_URL
+    }/api/articles/${articleId}/versions/${version}`
+  );
+  return response.data;
+};
