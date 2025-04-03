@@ -11,6 +11,33 @@ const CreateArticle: React.FC = () => {
   const [nickname, setNickname] = useState("");
   const editorRef = React.useRef<Editor>(null);
 
+  // 이미지 업로드 핸들러 함수
+  const handleImageUpload = async (
+    file: File,
+    callbackFn: (url: string, altText: string) => void
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_API_URL}/api/images/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      // 서버에서 반환된 이미지 URL을 사용
+      callbackFn(response.data.url, file.name);
+    } catch (error) {
+      console.error("이미지 업로드 중 오류가 발생했습니다:", error);
+      alert("이미지 업로드에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -90,6 +117,9 @@ const CreateArticle: React.FC = () => {
                   height="600px"
                   initialEditType="markdown"
                   useCommandShortcut={true}
+                  hooks={{
+                    addImageBlobHook: handleImageUpload,
+                  }}
                 />
               </div>
             </div>
