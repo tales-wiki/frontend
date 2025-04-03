@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import ArticleEdit from "./pages/ArticleEdit";
 import ArticleView from "./pages/ArticleView";
 import Characters from "./pages/Characters";
 import CreateArticle from "./pages/CreateArticle";
@@ -32,6 +33,7 @@ function App() {
                 element={<CreateArticle />}
               />
               <Route path="/wiki/:id" element={<ArticleView />} />
+              <Route path="/wiki/:id/edit" element={<ArticleEdit />} />
             </Routes>
           </main>
           <Footer />

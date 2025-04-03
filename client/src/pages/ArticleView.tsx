@@ -120,7 +120,7 @@ const ArticleView: React.FC = () => {
                 <h1 className="text-3xl font-bold">{article.title}</h1>
                 <div className="flex gap-2">
                   <button
-                    onClick={() => navigate(`/articles/${id}/edit`)}
+                    onClick={() => navigate(`/wiki/${id}/edit`)}
                     className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
                   >
                     편집하기
