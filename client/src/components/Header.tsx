@@ -35,12 +35,42 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-slate-800 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* 모바일 뒤로가기 버튼 */}
+          {location.pathname !== "/" ? (
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={handleGoBack}
+                className="text-slate-300 hover:text-slate-100 focus:outline-none flex items-center justify-center"
+              >
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+            </div>
+          ) : (
+            <div className="md:hidden w-6"></div>
+          )}
+
           {/* 로고 */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="text-2xl font-bold text-slate-100">
               테일즈위키
             </Link>
@@ -48,7 +78,10 @@ const Header: React.FC = () => {
 
           {/* 검색바 */}
           <div className="hidden md:block flex-1 max-w-xl mx-8">
-            <form onSubmit={handleSearch} className="relative">
+            <form
+              onSubmit={handleSearch}
+              className="relative flex items-center"
+            >
               <input
                 type="text"
                 value={searchQuery}
@@ -58,7 +91,7 @@ const Header: React.FC = () => {
               />
               <button
                 type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-100 focus:outline-none"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-100 focus:outline-none flex items-center justify-center"
               >
                 <svg
                   className="w-5 h-5"
@@ -79,10 +112,10 @@ const Header: React.FC = () => {
 
           {/* 네비게이션 */}
           <nav className="hidden md:block">
-            <div className="flex space-x-8">
+            <div className="flex items-center space-x-8">
               <Link
                 to="/characters"
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${
                   isActive("/characters")
                     ? "text-slate-100"
                     : "text-slate-300 hover:text-slate-100"
@@ -92,7 +125,7 @@ const Header: React.FC = () => {
               </Link>
               <Link
                 to="/guild"
-                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${
                   isActive("/guild")
                     ? "text-slate-100"
                     : "text-slate-300 hover:text-slate-100"
@@ -103,14 +136,14 @@ const Header: React.FC = () => {
               {isAuthenticated ? (
                 <button
                   onClick={handleLogout}
-                  className="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-slate-100 transition-colors duration-200 cursor-pointer"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-slate-100 transition-colors duration-200 cursor-pointer flex items-center"
                 >
                   로그아웃
                 </button>
               ) : (
                 <Link
                   to="/login"
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center ${
                     isActive("/login")
                       ? "text-slate-100"
                       : "text-slate-300 hover:text-slate-100"
@@ -123,10 +156,10 @@ const Header: React.FC = () => {
           </nav>
 
           {/* 모바일 메뉴 버튼 */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
             <button
               onClick={toggleMobileMenu}
-              className="text-gray-300 hover:text-white focus:outline-none"
+              className="text-gray-300 hover:text-white focus:outline-none flex items-center justify-center"
             >
               <svg
                 className="h-6 w-6"
