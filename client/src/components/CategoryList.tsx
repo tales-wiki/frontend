@@ -147,7 +147,9 @@ const CategoryList: React.FC<CategoryListProps> = ({
           {title}
         </h2>
         <Link
-          to="/wiki/create"
+          to={
+            title === "인물사전" ? "/wiki/create/person" : "/wiki/create/guild"
+          }
           className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors"
         >
           작성하기
