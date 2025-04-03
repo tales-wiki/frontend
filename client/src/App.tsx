@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import ArticleView from "./pages/ArticleView";
 import Characters from "./pages/Characters";
 import CreateArticle from "./pages/CreateArticle";
 import GoogleLoginCallback from "./pages/GoogleLoginCallback";
@@ -30,6 +31,7 @@ function App() {
                 path="/wiki/create/:category"
                 element={<CreateArticle />}
               />
+              <Route path="/wiki/:id" element={<ArticleView />} />
             </Routes>
           </main>
           <Footer />
