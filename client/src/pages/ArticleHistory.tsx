@@ -1,0 +1,152 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import RecentEdits from "../components/RecentEdits";
+import { getArticleHistory } from "../services/articleService";
+
+interface HistoryResponse {
+  title: string;
+  responses: {
+    nickname: string;
+    version: number;
+    size: number;
+    createdAt: string;
+  }[];
+}
+
+const ArticleHistory: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [history, setHistory] = useState<HistoryResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const days = ["일", "월", "화", "수", "목", "금", "토"];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    const dayOfWeek = days[date.getDay()];
+
+    return `${year}년 ${month}월 ${day}일 (${dayOfWeek}) ${hours}:${minutes}:${seconds}`;
+  };
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const data = await getArticleHistory(id!);
+        setHistory(data);
+      } catch (error) {
+        console.error("편집 로그를 불러오는데 실패했습니다:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistory();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-xl">로딩 중...</div>
+      </div>
+    );
+  }
+
+  if (!history) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="text-xl">편집 로그를 찾을 수 없습니다.</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+        {/* 왼쪽 섹션: 편집 로그 */}
+        <div className="w-full lg:flex-[5]">
+          <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
+            <div className="flex justify-between items-center mb-5 lg:mb-8">
+              <h1 className="text-2xl lg:text-4xl font-bold text-gray-800">
+                편집 로그
+              </h1>
+              <button
+                onClick={() => navigate(`/wiki/${id}`)}
+                className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
+              >
+                돌아가기
+              </button>
+            </div>
+            <h2 className="text-2xl lg:text-3xl text-gray-600 font-bold mb-5">
+              {history.title}
+            </h2>
+
+            <div className="space-y-4">
+              {/* 헤더 - 데스크톱에서만 표시 */}
+              <div className="hidden md:grid grid-cols-4 gap-4 p-4 bg-gray-100 rounded-lg font-bold">
+                <div className="text-left">버전</div>
+                <div className="text-center">생성일시</div>
+                <div className="text-right">문서 크기</div>
+                <div className="text-right">편집자</div>
+              </div>
+              {history.responses.map((response) => (
+                <div
+                  key={response.version}
+                  className="border rounded-lg hover:bg-gray-50 cursor-pointer overflow-hidden"
+                  onClick={() =>
+                    navigate(`/wiki/${id}/version/${response.version}`)
+                  }
+                >
+                  {/* 모바일 레이아웃 */}
+                  <div className="md:hidden">
+                    <div className="bg-gray-100 px-4 py-2 flex justify-between items-center">
+                      <span className="font-semibold">
+                        버전 {response.version}
+                      </span>
+                      <span className="text-gray-600">{response.nickname}</span>
+                    </div>
+                    <div className="p-4 space-y-2">
+                      <div className="text-sm text-gray-600 flex items-center">
+                        {formatDate(response.createdAt)}
+                      </div>
+                      <div className="text-sm text-gray-600 flex items-center">
+                        {response.size} 바이트
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 데스크톱 레이아웃 */}
+                  <div className="hidden md:grid grid-cols-4 gap-4 p-4">
+                    <div className="font-semibold text-left flex items-center">
+                      {response.version}
+                    </div>
+                    <div className="text-center text-gray-600 flex items-center justify-center">
+                      {formatDate(response.createdAt)}
+                    </div>
+                    <div className="text-right text-gray-600 flex items-center justify-end">
+                      {response.size} 바이트
+                    </div>
+                    <div className="text-right text-gray-600 flex items-center justify-end">
+                      {response.nickname}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 오른쪽 섹션: 최근 편집 내용 */}
+        <div className="w-full lg:flex-[1]">
+          <RecentEdits />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ArticleHistory;
