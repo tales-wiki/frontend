@@ -9,7 +9,7 @@ import { store } from "./store";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5분
+      staleTime: 1000 * 60 * 1, // 1분
       gcTime: 1000 * 60 * 30, // 30분
     },
   },
