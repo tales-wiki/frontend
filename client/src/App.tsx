@@ -3,10 +3,10 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import ArticleCreate from "./pages/ArticleCreate";
 import ArticleEdit from "./pages/ArticleEdit";
 import ArticleView from "./pages/ArticleView";
 import Characters from "./pages/Characters";
-import CreateArticle from "./pages/CreateArticle";
 import GoogleLoginCallback from "./pages/GoogleLoginCallback";
 import Guild from "./pages/Guild";
 import Home from "./pages/Home";
@@ -30,7 +30,7 @@ function App() {
               <Route path="/login/google" element={<GoogleLoginCallback />} />
               <Route
                 path="/wiki/create/:category"
-                element={<CreateArticle />}
+                element={<ArticleCreate />}
               />
               <Route path="/wiki/:id" element={<ArticleView />} />
               <Route path="/wiki/:id/edit" element={<ArticleEdit />} />

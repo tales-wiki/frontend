@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleForm from "../components/ArticleForm";
 
-const CreateArticle: React.FC = () => {
+const ArticleCreate: React.FC = () => {
   const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -60,4 +60,4 @@ const CreateArticle: React.FC = () => {
   );
 };
 
-export default CreateArticle;
+export default ArticleCreate;
