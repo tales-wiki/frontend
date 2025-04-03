@@ -1,43 +1,38 @@
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleContent from "../components/ArticleContent";
 import RecentEdits from "../components/RecentEdits";
+import { getArticleVersion } from "../services/articleService";
 
-interface Article {
-  id: number;
+interface ArticleVersionResponse {
   title: string;
-  nickname: string;
   content: string;
+  version: number;
   createdAt: string;
+  nickname: string;
 }
 
-const ArticleView: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const [article, setArticle] = useState<Article | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+const ArticleVersion: React.FC = () => {
+  const { id, version } = useParams<{ id: string; version: string }>();
   const navigate = useNavigate();
+  const [article, setArticle] = useState<ArticleVersionResponse | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        setLoading(true);
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_API_URL}/api/articles/${id}`
-        );
-        setArticle(response.data);
-      } catch (err) {
-        console.error("Error fetching article:", err);
+        const data = await getArticleVersion(id!, version!);
+        setArticle(data);
+      } catch (error) {
+        console.error("문서를 불러오는데 실패했습니다:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) {
-      fetchArticle();
-    }
-  }, [id]);
+    fetchArticle();
+  }, [id, version]);
 
   if (loading) {
     return (
@@ -50,7 +45,7 @@ const ArticleView: React.FC = () => {
   if (!article) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl">게시글을 찾을 수 없습니다.</div>
+        <div className="text-xl">문서를 찾을 수 없습니다.</div>
       </div>
     );
   }
@@ -64,6 +59,8 @@ const ArticleView: React.FC = () => {
           createdAt={article.createdAt}
           onNavigate={navigate}
           articleId={id}
+          showEditButton={false}
+          showHistoryButton={true}
         />
 
         {/* 오른쪽 섹션: 최근 편집 내용 */}
@@ -75,4 +72,4 @@ const ArticleView: React.FC = () => {
   );
 };
 
-export default ArticleView;
+export default ArticleVersion;

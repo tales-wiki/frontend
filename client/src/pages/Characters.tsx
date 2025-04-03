@@ -1,26 +1,17 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CategoryList from "../components/CategoryList";
 import RecentEdits from "../components/RecentEdits";
-
-interface Character {
-  id: number;
-  title: string;
-}
+import { CategoryItem, categoryService } from "../services/categoryService";
 
 const Characters: React.FC = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characters, setCharacters] = useState<CategoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCharacters = async () => {
       try {
-        const response = await axios.get(
-          `${
-            import.meta.env.VITE_BACKEND_API_URL
-          }/api/articles/categories/PERSON`
-        );
-        setCharacters(response.data.responses);
+        const data = await categoryService.getArticlesByCategory("PERSON");
+        setCharacters(data.responses);
       } catch (error) {
         console.error("게시글 데이터를 가져오는데 실패했습니다:", error);
       } finally {

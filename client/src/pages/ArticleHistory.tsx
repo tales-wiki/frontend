@@ -69,25 +69,25 @@ const ArticleHistory: React.FC = () => {
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* 왼쪽 섹션: 편집 로그 */}
         <div className="w-full lg:flex-[5]">
-          <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
+          <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-12">
             <div className="flex justify-between items-center mb-5 lg:mb-8">
-              <h1 className="text-2xl lg:text-4xl font-bold text-gray-800">
+              <h1 className="text-2xl lg:text-4xl font-bold text-slate-800">
                 편집 로그
               </h1>
               <button
                 onClick={() => navigate(`/wiki/${id}`)}
-                className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
+                className="px-4 py-2 text-sm font-medium text-slate-100 bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
               >
                 돌아가기
               </button>
             </div>
-            <h2 className="text-2xl lg:text-3xl text-gray-600 font-bold mb-5">
+            <h2 className="text-2xl lg:text-3xl text-slate-600 font-bold mb-5">
               {history.title}
             </h2>
 
             <div className="space-y-4">
               {/* 헤더 - 데스크톱에서만 표시 */}
-              <div className="hidden md:grid grid-cols-4 gap-4 p-4 bg-gray-100 rounded-lg font-bold">
+              <div className="hidden md:grid grid-cols-4 gap-4 p-4 bg-slate-100 rounded-lg font-bold">
                 <div className="text-left">버전</div>
                 <div className="text-center">생성일시</div>
                 <div className="text-right">문서 크기</div>
@@ -96,24 +96,26 @@ const ArticleHistory: React.FC = () => {
               {history.responses.map((response) => (
                 <div
                   key={response.version}
-                  className="border rounded-lg hover:bg-gray-50 cursor-pointer overflow-hidden"
+                  className="border rounded-lg hover:bg-slate-50 cursor-pointer overflow-hidden"
                   onClick={() =>
                     navigate(`/wiki/${id}/version/${response.version}`)
                   }
                 >
                   {/* 모바일 레이아웃 */}
                   <div className="md:hidden">
-                    <div className="bg-gray-100 px-4 py-2 flex justify-between items-center">
+                    <div className="bg-slate-100 px-4 py-2 flex justify-between items-center">
                       <span className="font-semibold">
                         버전 {response.version}
                       </span>
-                      <span className="text-gray-600">{response.nickname}</span>
+                      <span className="text-slate-600">
+                        {response.nickname}
+                      </span>
                     </div>
                     <div className="p-4 space-y-2">
-                      <div className="text-sm text-gray-600 flex items-center">
+                      <div className="text-sm text-slate-600 flex items-center">
                         {formatDate(response.createdAt)}
                       </div>
-                      <div className="text-sm text-gray-600 flex items-center">
+                      <div className="text-sm text-slate-600 flex items-center">
                         {response.size} 바이트
                       </div>
                     </div>
@@ -124,13 +126,13 @@ const ArticleHistory: React.FC = () => {
                     <div className="font-semibold text-left flex items-center">
                       {response.version}
                     </div>
-                    <div className="text-center text-gray-600 flex items-center justify-center">
+                    <div className="text-center text-slate-600 flex items-center justify-center">
                       {formatDate(response.createdAt)}
                     </div>
-                    <div className="text-right text-gray-600 flex items-center justify-end">
+                    <div className="text-right text-slate-600 flex items-center justify-end">
                       {response.size} 바이트
                     </div>
-                    <div className="text-right text-gray-600 flex items-center justify-end">
+                    <div className="text-right text-slate-600 flex items-center justify-end">
                       {response.nickname}
                     </div>
                   </div>

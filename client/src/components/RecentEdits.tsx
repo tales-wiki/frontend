@@ -54,7 +54,7 @@ const RecentEdits: React.FC = () => {
       case "GUILD":
         return "bg-purple-100 text-purple-800";
       default:
-        return "bg-gray-100 text-gray-800";
+        return "bg-slate-100 text-slate-800";
     }
   };
 
@@ -71,7 +71,7 @@ const RecentEdits: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-6">
+      <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border border-slate-800 p-5 lg:p-6">
         <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
         <p>로딩 중...</p>
       </div>
@@ -79,12 +79,12 @@ const RecentEdits: React.FC = () => {
   }
 
   return (
-    <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-6">
+    <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-6">
       <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
       <div className="space-y-4">
         {recentEdits.map((edit) => (
           <Link key={edit.id} to={`/wiki/${edit.id}`} className="block">
-            <div className="border-b pb-2">
+            <div className="border-b border-slate-400 pb-2">
               <p className="text-base font-medium">{edit.title}</p>
               <div className="flex items-center gap-2 mt-1">
                 <span
@@ -94,7 +94,7 @@ const RecentEdits: React.FC = () => {
                 >
                   {getCategoryText(edit.category)}
                 </span>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-slate-500">
                   {formatTimeAgo(edit.createdAt)}
                 </p>
               </div>

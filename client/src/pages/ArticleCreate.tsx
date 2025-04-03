@@ -1,8 +1,8 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleForm from "../components/ArticleForm";
+import { createArticle } from "../services/articleService";
 
 const ArticleCreate: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -15,15 +15,12 @@ const ArticleCreate: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_API_URL}/api/articles`,
-        {
-          title,
-          nickname,
-          content,
-          category: category === "person" ? "인물" : "길드",
-        }
-      );
+      const response = await createArticle({
+        title,
+        nickname,
+        content,
+        category: category === "person" ? "인물" : "길드",
+      });
 
       if (response.status === 201) {
         navigate(category === "person" ? "/characters" : "/guild");
@@ -36,8 +33,8 @@ const ArticleCreate: React.FC = () => {
   return (
     <div className="container mx-auto py-4 sm:py-6 lg:py-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-none sm:rounded-lg border-t border-b sm:border border-gray-800 p-3 sm:p-5 lg:p-12">
-          <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-5 lg:mb-8">
+        <div className="bg-white rounded-lg border-t border-b sm:border border-slate-800 p-3 sm:p-5 lg:p-12">
+          <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-slate-800 mb-3 sm:mb-5 lg:mb-8">
             {category === "person" ? "인물사전" : "길드사전"} 작성하기
           </h2>
           <ArticleForm
