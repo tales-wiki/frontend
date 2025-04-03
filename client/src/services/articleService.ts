@@ -8,8 +8,23 @@ export interface ArticleData {
   content: string;
 }
 
+export interface Article {
+  id: number;
+  title: string;
+  nickname: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface RecentEdit {
+  id: number;
+  title: string;
+  category: string;
+  createdAt: string;
+}
+
 export const articleService = {
-  getArticle: async (id: string) => {
+  getArticle: async (id: string): Promise<Article> => {
     const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
   },
@@ -17,6 +32,11 @@ export const articleService = {
   updateArticle: async (id: string, articleData: ArticleData) => {
     const response = await axios.put(`${API_URL}/${id}`, articleData);
     return response.data;
+  },
+
+  getRecentEdits: async () => {
+    const response = await axios.get(`${API_URL}/recent-edits`);
+    return response.data.responses;
   },
 };
 

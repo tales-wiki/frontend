@@ -1,25 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Link } from "react-router-dom";
-
-interface RecentEdit {
-  id: number;
-  title: string;
-  category: string;
-  createdAt: string;
-}
-
-const fetchRecentEdits = async () => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BACKEND_API_URL}/api/articles/recent-edits`
-  );
-  return response.data.responses;
-};
+import { articleService, RecentEdit } from "../services/articleService";
 
 const RecentEdits = () => {
   const { data: recentEdits, isLoading } = useQuery<RecentEdit[]>({
     queryKey: ["recentEdits"],
-    queryFn: fetchRecentEdits,
+    queryFn: articleService.getRecentEdits,
   });
 
   const formatTimeAgo = (dateString: string) => {

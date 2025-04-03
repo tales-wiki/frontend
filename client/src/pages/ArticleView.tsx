@@ -1,17 +1,9 @@
 import "@toast-ui/editor/dist/toastui-editor-viewer.css";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleContent from "../components/ArticleContent";
 import RecentEdits from "../components/RecentEdits";
-
-interface Article {
-  id: number;
-  title: string;
-  nickname: string;
-  content: string;
-  createdAt: string;
-}
+import { Article, articleService } from "../services/articleService";
 
 const ArticleView = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,10 +15,8 @@ const ArticleView = () => {
     const fetchArticle = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_API_URL}/api/articles/${id}`
-        );
-        setArticle(response.data);
+        const data = await articleService.getArticle(id!);
+        setArticle(data);
       } catch (err) {
         console.error("Error fetching article:", err);
       } finally {
