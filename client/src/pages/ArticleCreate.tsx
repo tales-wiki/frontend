@@ -1,8 +1,8 @@
 import "@toast-ui/editor/dist/toastui-editor.css";
-import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleForm from "../components/ArticleForm";
+import { createArticle } from "../services/articleService";
 
 const ArticleCreate: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -15,15 +15,12 @@ const ArticleCreate: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_API_URL}/api/articles`,
-        {
-          title,
-          nickname,
-          content,
-          category: category === "person" ? "인물" : "길드",
-        }
-      );
+      const response = await createArticle({
+        title,
+        nickname,
+        content,
+        category: category === "person" ? "인물" : "길드",
+      });
 
       if (response.status === 201) {
         navigate(category === "person" ? "/characters" : "/guild");

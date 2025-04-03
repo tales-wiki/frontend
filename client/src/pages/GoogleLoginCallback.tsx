@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { authService } from "../services/authService";
 import { setLogin } from "../store/slices/authSlice";
 
 const GoogleLoginCallback: React.FC = () => {
@@ -24,13 +24,7 @@ const GoogleLoginCallback: React.FC = () => {
           throw new Error("인증 코드가 없습니다.");
         }
 
-        const backendUrl = import.meta.env.VITE_BACKEND_API_URL;
-        const response = await axios.get(
-          `${backendUrl}/api/members/login/google?code=${code}`,
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await authService.googleLogin(code);
 
         if (response.status === 200) {
           // Redux store에 로그인 상태 저장
