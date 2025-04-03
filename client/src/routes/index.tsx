@@ -10,6 +10,7 @@ import Guild from "../pages/Guild";
 import Home from "../pages/Home";
 import KakaoLoginCallback from "../pages/KakaoLoginCallback";
 import Login from "../pages/Login";
+import NotFound from "../pages/NotFound";
 
 export const AppRoutes = () => {
   return (
@@ -25,6 +26,7 @@ export const AppRoutes = () => {
       <Route path="/wiki/:id/edit" element={<ArticleEdit />} />
       <Route path="/wiki/:id/history" element={<ArticleHistory />} />
       <Route path="/wiki/:id/version/:version" element={<ArticleVersion />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
