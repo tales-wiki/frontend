@@ -141,7 +141,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
   if (loading) return <div className="text-center py-4">로딩 중...</div>;
 
   return (
-    <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
+    <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-12">
       <div className="flex justify-between items-center mb-5 lg:mb-8">
         <h2 className="text-2xl lg:text-4xl font-bold text-gray-800">
           {title}

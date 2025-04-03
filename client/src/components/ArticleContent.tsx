@@ -78,7 +78,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
 
   return (
     <div className="w-full lg:flex-[5]">
-      <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:p-12">
+      <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-12">
         <div className="mb-2">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl lg:text-4xl font-bold text-gray-800">
@@ -172,7 +172,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
 
       {/* 마지막 편집 시간 섹션 */}
       <div className="mt-4">
-        <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border-t border-b md:border lg:border border-gray-800 p-5 lg:px-10 lg:py-7">
+        <div className="bg-white rounded-lg border border-gray-800 p-5 lg:px-10 lg:py-7">
           <div className="text-gray-600 text-sm">
             이 문서는{" "}
             {new Date(createdAt)
