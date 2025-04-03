@@ -173,7 +173,7 @@ const ArticleView: React.FC = () => {
                   return html.replace(
                     /<h([1-6])(.*?)>(.*?)<\/h\1>/g,
                     (
-                      match: string,
+                      _match: string,
                       level: string,
                       attrs: string,
                       content: string
