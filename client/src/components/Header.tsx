@@ -36,12 +36,12 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-gray-800 shadow-lg z-50">
+    <header className="fixed top-0 left-0 right-0 bg-slate-800 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* 로고 */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-2xl font-bold text-white">
+            <Link to="/" className="text-2xl font-bold text-slate-100">
               테일즈위키
             </Link>
           </div>
@@ -54,11 +54,11 @@ const Header: React.FC = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="검색어를 입력하세요..."
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded-lg bg-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500"
               />
               <button
                 type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white focus:outline-none"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-100 focus:outline-none"
               >
                 <svg
                   className="w-5 h-5"
@@ -84,8 +84,8 @@ const Header: React.FC = () => {
                 to="/characters"
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive("/characters")
-                    ? "text-white"
-                    : "text-gray-300 hover:text-white"
+                    ? "text-slate-100"
+                    : "text-slate-300 hover:text-slate-100"
                 }`}
               >
                 인물사전
@@ -94,8 +94,8 @@ const Header: React.FC = () => {
                 to="/guild"
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive("/guild")
-                    ? "text-white"
-                    : "text-gray-300 hover:text-white"
+                    ? "text-slate-100"
+                    : "text-slate-300 hover:text-slate-100"
                 }`}
               >
                 길드사전
@@ -103,7 +103,7 @@ const Header: React.FC = () => {
               {isAuthenticated ? (
                 <button
                   onClick={handleLogout}
-                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-slate-100 transition-colors duration-200 cursor-pointer"
                 >
                   로그아웃
                 </button>
@@ -112,8 +112,8 @@ const Header: React.FC = () => {
                   to="/login"
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive("/login")
-                      ? "text-white"
-                      : "text-gray-300 hover:text-white"
+                      ? "text-slate-100"
+                      : "text-slate-300 hover:text-slate-100"
                   }`}
                 >
                   로그인
@@ -163,8 +163,8 @@ const Header: React.FC = () => {
                 onClick={handleMobileMenuClick}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   isActive("/characters")
-                    ? "text-white bg-gray-900"
-                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                    ? "text-slate-100 bg-slate-900"
+                    : "text-slate-300 hover:text-slate-100 hover:bg-slate-700"
                 }`}
               >
                 인물사전
@@ -174,8 +174,8 @@ const Header: React.FC = () => {
                 onClick={handleMobileMenuClick}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
                   isActive("/guild")
-                    ? "text-white bg-gray-900"
-                    : "text-gray-300 hover:text-white hover:bg-gray-700"
+                    ? "text-slate-100 bg-slate-900"
+                    : "text-slate-300 hover:text-slate-100 hover:bg-slate-700"
                 }`}
               >
                 길드사전
@@ -186,7 +186,7 @@ const Header: React.FC = () => {
                     handleLogout();
                     handleMobileMenuClick();
                   }}
-                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 cursor-pointer"
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-slate-100 hover:bg-slate-700 cursor-pointer"
                 >
                   로그아웃
                 </button>
@@ -196,8 +196,8 @@ const Header: React.FC = () => {
                   onClick={handleMobileMenuClick}
                   className={`block px-3 py-2 rounded-md text-base font-medium ${
                     isActive("/login")
-                      ? "text-white bg-gray-900"
-                      : "text-gray-300 hover:text-white hover:bg-gray-700"
+                      ? "text-slate-100 bg-slate-900"
+                      : "text-slate-300 hover:text-slate-100 hover:bg-slate-700"
                   }`}
                 >
                   로그인

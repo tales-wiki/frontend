@@ -141,16 +141,16 @@ const CategoryList: React.FC<CategoryListProps> = ({
   if (loading) return <div className="text-center py-4">로딩 중...</div>;
 
   return (
-    <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-12">
+    <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-12">
       <div className="flex justify-between items-center mb-5 lg:mb-8">
-        <h2 className="text-2xl lg:text-4xl font-bold text-gray-800">
+        <h2 className="text-2xl lg:text-4xl font-bold text-slate-800">
           {title}
         </h2>
         <Link
           to={
             title === "인물사전" ? "/wiki/create/person" : "/wiki/create/guild"
           }
-          className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors"
+          className="bg-slate-700 text-slate-100 text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors"
         >
           작성하기
         </Link>
@@ -161,23 +161,23 @@ const CategoryList: React.FC<CategoryListProps> = ({
           .filter(([key]) => /[ㄱ-ㅎ]/.test(key))
           .map(([initial, items]) => (
             <div key={initial}>
-              <h3 className="text-s lg:text-s mb-2 bg-gray-700 text-white py-1 px-2 text-left font-semibold">
+              <h3 className="text-s lg:text-s mb-2 bg-slate-700 text-slate-100 py-1 px-2 text-left font-semibold">
                 {initial}
               </h3>
-              <ul className="list-none pl-2 text-sm text-gray-600 space-y-1">
+              <ul className="list-none pl-2 text-sm text-slate-600 space-y-1">
                 {items.length > 0 ? (
                   items.map((item) => (
                     <li key={item.id}>
                       <Link
                         to={`/wiki/${item.id}`}
-                        className="hover:text-gray-900 transition-colors"
+                        className="hover:text-slate-900 transition-colors"
                       >
                         {item.title}
                       </Link>
                     </li>
                   ))
                 ) : (
-                  <li className="text-gray-400">-</li>
+                  <li className="text-slate-400">-</li>
                 )}
               </ul>
             </div>
@@ -189,23 +189,23 @@ const CategoryList: React.FC<CategoryListProps> = ({
           .filter(([key]) => /[A-Z]/.test(key))
           .map(([initial, items]) => (
             <div key={initial}>
-              <h3 className="text-s lg:text-s mb-2 bg-gray-700 text-white py-1 px-2 text-left font-semibold">
+              <h3 className="text-s lg:text-s mb-2 bg-slate-700 text-slate-100 py-1 px-2 text-left font-semibold">
                 {initial}
               </h3>
-              <ul className="list-none pl-2 text-sm text-gray-600 space-y-1">
+              <ul className="list-none pl-2 text-sm text-slate-600 space-y-1">
                 {items.length > 0 ? (
                   items.map((item) => (
                     <li key={item.id}>
                       <Link
                         to={`/wiki/${item.id}`}
-                        className="hover:text-gray-900 transition-colors"
+                        className="hover:text-slate-900 transition-colors"
                       >
                         {item.title}
                       </Link>
                     </li>
                   ))
                 ) : (
-                  <li className="text-gray-400">-</li>
+                  <li className="text-slate-400">-</li>
                 )}
               </ul>
             </div>
@@ -217,23 +217,23 @@ const CategoryList: React.FC<CategoryListProps> = ({
           .filter(([key]) => /[0-9]/.test(key))
           .map(([initial, items]) => (
             <div key={initial}>
-              <h3 className="text-s lg:text-s mb-2 bg-gray-700 text-white py-1 px-2 text-left font-semibold">
+              <h3 className="text-s lg:text-s mb-2 bg-slate-700 text-slate-100 py-1 px-2 text-left font-semibold">
                 {initial}
               </h3>
-              <ul className="list-none pl-2 text-sm text-gray-600 space-y-1">
+              <ul className="list-none pl-2 text-sm text-slate-600 space-y-1">
                 {items.length > 0 ? (
                   items.map((item) => (
                     <li key={item.id}>
                       <Link
                         to={`/wiki/${item.id}`}
-                        className="hover:text-gray-900 transition-colors"
+                        className="hover:text-slate-900 transition-colors"
                       >
                         {item.title}
                       </Link>
                     </li>
                   ))
                 ) : (
-                  <li className="text-gray-400">-</li>
+                  <li className="text-slate-400">-</li>
                 )}
               </ul>
             </div>

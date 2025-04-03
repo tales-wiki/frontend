@@ -78,10 +78,10 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
 
   return (
     <div className="w-full lg:flex-[5]">
-      <div className="bg-white rounded-lg border border-gray-800 p-5 lg:p-12">
+      <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-12">
         <div className="mb-2">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl lg:text-4xl font-bold text-gray-800">
+            <h1 className="text-2xl lg:text-4xl font-bold text-slate-800">
               {title}
             </h1>
             {onNavigate &&
@@ -91,7 +91,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
                   {showEditButton && (
                     <button
                       onClick={() => onNavigate(`/wiki/${articleId}/edit`)}
-                      className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
+                      className="bg-slate-700 text-slate-100 text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
                     >
                       편집하기
                     </button>
@@ -99,7 +99,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
                   {showHistoryButton && (
                     <button
                       onClick={() => onNavigate(`/wiki/${articleId}/history`)}
-                      className="bg-gray-700 text-white text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
+                      className="bg-slate-700 text-slate-100 text-sm lg:text-base font-medium py-1.5 lg:py-2 px-3 lg:px-4 transition-colors cursor-pointer"
                     >
                       편집로그
                     </button>
@@ -111,8 +111,8 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
 
         {/* 목차 섹션 */}
         {toc.length > 0 && (
-          <div className="mb-10 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm max-w-md ml-0">
-            <h2 className="text-lg font-semibold mb-4 pb-2 border-b border-gray-300">
+          <div className="mb-10 p-6 bg-slate-50 rounded-lg border border-slate-200 shadow-sm max-w-md ml-0">
+            <h2 className="text-lg font-semibold mb-4 pb-2 border-b border-slate-300">
               목차
             </h2>
             <ul className="space-y-2.5">
@@ -123,10 +123,10 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
                     item.level === 1
                       ? "pl-0 font-medium text-base lg:text-base"
                       : item.level === 2
-                      ? "pl-4 text-gray-700 text-sm lg:text-base"
+                      ? "pl-4 text-slate-700 text-sm lg:text-base"
                       : item.level === 3
-                      ? "pl-8 text-gray-600 text-xs lg:text-sm"
-                      : "pl-12 text-gray-500 text-xs lg:text-sm"
+                      ? "pl-8 text-slate-600 text-xs lg:text-sm"
+                      : "pl-12 text-slate-500 text-xs lg:text-sm"
                   }`}
                   onClick={() => scrollToSection(item.id)}
                 >
@@ -172,8 +172,8 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
 
       {/* 마지막 편집 시간 섹션 */}
       <div className="mt-4">
-        <div className="bg-white rounded-lg border border-gray-800 p-5 lg:px-10 lg:py-7">
-          <div className="text-gray-600 text-sm">
+        <div className="bg-white rounded-lg border border-slate-800 p-5 lg:px-10 lg:py-7">
+          <div className="text-slate-600 text-sm">
             이 문서는{" "}
             {new Date(createdAt)
               .toLocaleString("ko-KR", {

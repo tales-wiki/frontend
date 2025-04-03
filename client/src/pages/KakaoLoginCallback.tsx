@@ -33,12 +33,12 @@ const KakaoLoginCallback: React.FC = () => {
   }, [navigate, searchParams, dispatch]);
 
   return (
-    <div className="h-[calc(100vh-4rem-6rem)] flex items-center justify-center bg-gray-100">
+    <div className="h-[calc(100vh-4rem-6rem)] flex items-center justify-center bg-slate-100">
       <div className="text-center">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-slate-900">
           로그인 처리 중...
         </h2>
-        <p className="mt-2 text-sm text-gray-600">잠시만 기다려주세요.</p>
+        <p className="mt-2 text-sm text-slate-600">잠시만 기다려주세요.</p>
       </div>
     </div>
   );

@@ -56,7 +56,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
         <div className="flex-1">
           <label
             htmlFor="title"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-slate-700 mb-1"
           >
             {category === "person"
               ? "닉네임"
@@ -70,8 +70,8 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
             value={title}
             onChange={(e) => onTitleChange(e.target.value)}
             readOnly={isTitleReadOnly}
-            className={`w-full px-3 py-2 border border-gray-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-700 ${
-              isTitleReadOnly ? "bg-gray-100" : ""
+            className={`w-full px-3 py-2 border border-slate-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-slate-700 ${
+              isTitleReadOnly ? "bg-slate-100" : ""
             }`}
             required
           />
@@ -79,7 +79,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
         <div className="w-full sm:w-1/4">
           <label
             htmlFor="nickname"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-slate-700 mb-1"
           >
             작성자
           </label>
@@ -88,7 +88,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
             id="nickname"
             value={nickname}
             onChange={(e) => onNicknameChange(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-gray-700"
+            className="w-full px-3 py-2 border border-slate-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-slate-700"
             required
           />
         </div>
@@ -96,11 +96,11 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
       <div>
         <label
           htmlFor="content"
-          className="block text-sm font-medium text-gray-700 mb-1"
+          className="block text-sm font-medium text-slate-700 mb-1"
         >
           내용
         </label>
-        <div className="border border-gray-700 border-opacity-50 rounded-md">
+        <div className="border border-slate-700 border-opacity-50 rounded-md">
           <Editor
             ref={editorRef}
             initialValue={content}
@@ -128,13 +128,13 @@ const ArticleForm: React.FC<ArticleFormProps> = ({
         <button
           type="button"
           onClick={onCancel}
-          className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
+          className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-md hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
         >
           취소
         </button>
         <button
           type="submit"
-          className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 cursor-pointer"
+          className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-slate-100 bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
         >
           {submitButtonText}
         </button>
