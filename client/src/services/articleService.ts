@@ -36,7 +36,9 @@ export const articleService = {
   },
 
   updateArticle: async (id: string, articleData: ArticleData) => {
-    const response = await axios.put(`${API_URL}/${id}`, articleData);
+    const response = await axios.put(`${API_URL}/${id}`, articleData, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
