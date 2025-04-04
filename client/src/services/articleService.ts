@@ -2,16 +2,20 @@ import axios from "axios";
 
 const API_URL = `${import.meta.env.VITE_BACKEND_API_URL}/api/articles`;
 
-export interface ArticleData {
+interface ArticleCreateData {
   title: string;
+  nickname: string;
+  content: string;
+  category: string;
+}
+
+export interface ArticleUpdateData {
   nickname: string;
   content: string;
 }
 
 export interface Article {
-  id: number;
   title: string;
-  nickname: string;
   content: string;
   createdAt: string;
 }
@@ -30,12 +34,20 @@ export interface SearchResult {
 }
 
 export const articleService = {
+  createArticle: async (data: ArticleCreateData) => {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_API_URL}/api/articles`,
+      data
+    );
+    return response;
+  },
+
   getArticle: async (id: string): Promise<Article> => {
     const response = await axios.get(`${API_URL}/${id}`);
     return response.data;
   },
 
-  updateArticle: async (id: string, articleData: ArticleData) => {
+  updateArticle: async (id: string, articleData: ArticleUpdateData) => {
     const response = await axios.put(`${API_URL}/${id}`, articleData, {
       withCredentials: true,
     });
@@ -53,35 +65,22 @@ export const articleService = {
     );
     return response.data.responses;
   },
-};
 
-export const getArticleHistory = async (articleId: string) => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BACKEND_API_URL}/api/articles/${articleId}/versions`
-  );
-  return response.data;
-};
+  getArticleHistory: async (articleId: string) => {
+    const response = await axios.get(
+      `${
+        import.meta.env.VITE_BACKEND_API_URL
+      }/api/articles/${articleId}/versions`
+    );
+    return response.data;
+  },
 
-export const getArticleVersion = async (articleId: string, version: string) => {
-  const response = await axios.get(
-    `${
-      import.meta.env.VITE_BACKEND_API_URL
-    }/api/articles/${articleId}/versions/${version}`
-  );
-  return response.data;
-};
-
-interface ArticleCreateData {
-  title: string;
-  nickname: string;
-  content: string;
-  category: string;
-}
-
-export const createArticle = async (data: ArticleCreateData) => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BACKEND_API_URL}/api/articles`,
-    data
-  );
-  return response;
+  getArticleVersion: async (articleId: string, version: string) => {
+    const response = await axios.get(
+      `${
+        import.meta.env.VITE_BACKEND_API_URL
+      }/api/articles/${articleId}/versions/${version}`
+    );
+    return response.data;
+  },
 };

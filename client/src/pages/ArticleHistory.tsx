@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RecentEdits from "../components/RecentEdits";
-import { getArticleHistory } from "../services/articleService";
+import { articleService } from "../services/articleService";
 
 interface HistoryResponse {
   title: string;
@@ -36,7 +36,7 @@ const ArticleHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const data = await getArticleHistory(id!);
+        const data = await articleService.getArticleHistory(id!);
         setHistory(data);
       } catch (error) {
         console.error("편집 로그를 불러오는데 실패했습니다:", error);

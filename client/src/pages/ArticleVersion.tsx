@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleContent from "../components/ArticleContent";
 import RecentEdits from "../components/RecentEdits";
-import { getArticleVersion } from "../services/articleService";
+import { articleService } from "../services/articleService";
 
 interface ArticleVersionResponse {
   title: string;
@@ -22,7 +22,7 @@ const ArticleVersion = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const data = await getArticleVersion(id!, version!);
+        const data = await articleService.getArticleVersion(id!, version!);
         setArticle(data);
       } catch (error) {
         console.error("문서를 불러오는데 실패했습니다:", error);

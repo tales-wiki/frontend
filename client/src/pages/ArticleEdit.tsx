@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ArticleForm from "../components/ArticleForm";
 import { articleService } from "../services/articleService";
+import { ApiError } from "../types/api";
 
 const ArticleEdit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,6 +12,7 @@ const ArticleEdit: React.FC = () => {
   const [title, setTitle] = useState("");
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const editorRef = React.useRef<Editor>(null);
 
   useEffect(() => {
@@ -38,16 +40,29 @@ const ArticleEdit: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     try {
       await articleService.updateArticle(id!, {
-        title,
         nickname,
         content,
       });
       navigate(`/wiki/${id}`);
-    } catch (error) {
-      console.error("글 수정 중 오류가 발생했습니다:", error);
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
+      if (apiError.response?.status === 400) {
+        const errorCode = apiError.response.data.code;
+        switch (errorCode) {
+          case "INVALID_ARTICLE_NICKNAME_LENGTH":
+            setError("닉네임 길이가 올바르지 않습니다. (최대 10자)");
+            break;
+          default:
+            setError(apiError.response.data.message);
+        }
+      } else {
+        console.error("글 수정 중 오류가 발생했습니다:", error);
+        setError("글 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
     }
   };
 
@@ -58,6 +73,11 @@ const ArticleEdit: React.FC = () => {
           <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-slate-800 mb-3 sm:mb-5 lg:mb-8">
             편집하기
           </h2>
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-md">
+              {error}
+            </div>
+          )}
           <ArticleForm
             title={title}
             nickname={nickname}
