@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { authService } from "../services/authService";
 import { setLogout } from "../store/slices/authSlice";
 import Logo from "./Logo";
 import MobileMenu from "./MobileMenu";
@@ -19,9 +20,14 @@ const Header = memo(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const handleLogout = useCallback(() => {
-    dispatch(setLogout());
-    navigate("/");
+  const handleLogout = useCallback(async () => {
+    try {
+      await authService.logout();
+      dispatch(setLogout());
+      navigate("/");
+    } catch (error) {
+      console.error("로그아웃 중 오류가 발생했습니다:", error);
+    }
   }, [dispatch, navigate]);
 
   const handleGoBack = useCallback(() => {
