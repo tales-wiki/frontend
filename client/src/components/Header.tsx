@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -20,6 +20,9 @@ const Header = memo(() => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const searchTimeoutRef = useRef<number | undefined>(undefined);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const getCategoryName = useCallback((category: string) => {
     switch (category) {
@@ -86,22 +89,30 @@ const Header = memo(() => {
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
       setSearchQuery(value);
+      setIsSearchOpen(true);
+
+      // 기존 타이머가 있으면 취소
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
 
       if (value.trim()) {
-        setIsSearching(true);
-        try {
-          const response = await axios.get(
-            `${
-              import.meta.env.VITE_BACKEND_API_URL
-            }/api/articles/search?keyword=${encodeURIComponent(value)}`
-          );
-          setSearchResults(response.data.responses);
-        } catch (error) {
-          console.error("검색 중 오류 발생:", error);
-          setSearchResults([]);
-        } finally {
-          setIsSearching(false);
-        }
+        searchTimeoutRef.current = setTimeout(async () => {
+          setIsSearching(true);
+          try {
+            const response = await axios.get(
+              `${
+                import.meta.env.VITE_BACKEND_API_URL
+              }/api/articles/search?keyword=${encodeURIComponent(value)}`
+            );
+            setSearchResults(response.data.responses);
+          } catch (error) {
+            console.error("검색 중 오류 발생:", error);
+            setSearchResults([]);
+          } finally {
+            setIsSearching(false);
+          }
+        }, 300);
       } else {
         setSearchResults([]);
       }
@@ -112,7 +123,27 @@ const Header = memo(() => {
   const handleClearSearch = useCallback(() => {
     setSearchQuery("");
     setSearchResults([]);
+    setIsSearchOpen(false);
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
   }, []);
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      searchRef.current &&
+      !searchRef.current.contains(event.target as Node)
+    ) {
+      setIsSearchOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-slate-800 shadow-lg z-50">
@@ -152,7 +183,10 @@ const Header = memo(() => {
           </div>
 
           {/* 검색바 */}
-          <div className="hidden md:block flex-1 max-w-xl mx-8 relative">
+          <div
+            ref={searchRef}
+            className="hidden md:block flex-1 max-w-xl mx-8 relative"
+          >
             <form
               onSubmit={handleSearch}
               className="relative flex items-center"
@@ -187,7 +221,7 @@ const Header = memo(() => {
             </form>
 
             {/* 검색 결과 */}
-            {searchQuery && (
+            {isSearchOpen && searchQuery && (
               <div className="absolute top-full left-0 right-0 mt-1 bg-slate-800 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
                 {isSearching ? (
                   <div className="p-4 text-slate-300 text-center">
@@ -199,6 +233,7 @@ const Header = memo(() => {
                       <li key={result.id}>
                         <Link
                           to={`/wiki/${result.id}`}
+                          onClick={() => setIsSearchOpen(false)}
                           className="block px-4 py-2 hover:bg-slate-700 text-slate-100"
                         >
                           <div className="font-medium">{result.title}</div>
