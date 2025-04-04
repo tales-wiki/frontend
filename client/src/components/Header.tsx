@@ -135,6 +135,8 @@ const Header = memo(() => {
       !searchRef.current.contains(event.target as Node)
     ) {
       setIsSearchOpen(false);
+      setSearchQuery("");
+      setSearchResults([]);
     }
   }, []);
 
@@ -233,7 +235,11 @@ const Header = memo(() => {
                       <li key={result.id}>
                         <Link
                           to={`/wiki/${result.id}`}
-                          onClick={() => setIsSearchOpen(false)}
+                          onClick={() => {
+                            setIsSearchOpen(false);
+                            setSearchQuery("");
+                            setSearchResults([]);
+                          }}
                           className="block px-4 py-2 hover:bg-slate-700 text-slate-100"
                         >
                           <div className="font-medium">{result.title}</div>
