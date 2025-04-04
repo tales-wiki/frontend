@@ -1,12 +1,6 @@
-import axios from "axios";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-interface SearchResult {
-  id: number;
-  title: string;
-  category: string;
-}
+import { articleService, SearchResult } from "../services/articleService";
 
 interface SearchBarProps {
   isMobile?: boolean;
@@ -43,12 +37,8 @@ const SearchBar = memo(
 
         setIsSearching(true);
         try {
-          const response = await axios.get(
-            `${
-              import.meta.env.VITE_BACKEND_API_URL
-            }/api/articles/search?keyword=${encodeURIComponent(searchQuery)}`
-          );
-          setSearchResults(response.data.responses);
+          const results = await articleService.searchArticles(searchQuery);
+          setSearchResults(results);
         } catch (error) {
           console.error("검색 중 오류 발생:", error);
           setSearchResults([]);
@@ -73,12 +63,8 @@ const SearchBar = memo(
           searchTimeoutRef.current = setTimeout(async () => {
             setIsSearching(true);
             try {
-              const response = await axios.get(
-                `${
-                  import.meta.env.VITE_BACKEND_API_URL
-                }/api/articles/search?keyword=${encodeURIComponent(value)}`
-              );
-              setSearchResults(response.data.responses);
+              const results = await articleService.searchArticles(value);
+              setSearchResults(results);
             } catch (error) {
               console.error("검색 중 오류 발생:", error);
               setSearchResults([]);

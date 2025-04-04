@@ -23,6 +23,12 @@ export interface RecentEdit {
   createdAt: string;
 }
 
+export interface SearchResult {
+  id: number;
+  title: string;
+  category: string;
+}
+
 export const articleService = {
   getArticle: async (id: string): Promise<Article> => {
     const response = await axios.get(`${API_URL}/${id}`);
@@ -36,6 +42,13 @@ export const articleService = {
 
   getRecentEdits: async () => {
     const response = await axios.get(`${API_URL}/recent-edits`);
+    return response.data.responses;
+  },
+
+  searchArticles: async (keyword: string): Promise<SearchResult[]> => {
+    const response = await axios.get(
+      `${API_URL}/search?keyword=${encodeURIComponent(keyword)}`
+    );
     return response.data.responses;
   },
 };
