@@ -1,8 +1,15 @@
+import axios from "axios";
 import React, { memo, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { setLogout } from "../store/slices/authSlice";
+
+interface SearchResult {
+  id: number;
+  title: string;
+  category: string;
+}
 
 const Header = memo(() => {
   const location = useLocation();
@@ -11,6 +18,19 @@ const Header = memo(() => {
   const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+
+  const getCategoryName = useCallback((category: string) => {
+    switch (category) {
+      case "GUILD":
+        return "길드";
+      case "PERSON":
+        return "인물";
+      default:
+        return category;
+    }
+  }, []);
 
   const isActive = useCallback(
     (path: string) => {
@@ -20,10 +40,27 @@ const Header = memo(() => {
   );
 
   const handleSearch = useCallback(
-    (e: React.FormEvent) => {
+    async (e: React.FormEvent) => {
       e.preventDefault();
-      // TODO: 검색 기능 구현
-      console.log("검색어:", searchQuery);
+      if (!searchQuery.trim()) {
+        setSearchResults([]);
+        return;
+      }
+
+      setIsSearching(true);
+      try {
+        const response = await axios.get(
+          `${
+            import.meta.env.VITE_BACKEND_API_URL
+          }/api/articles/search?keyword=${encodeURIComponent(searchQuery)}`
+        );
+        setSearchResults(response.data.responses);
+      } catch (error) {
+        console.error("검색 중 오류 발생:", error);
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
     },
     [searchQuery]
   );
@@ -46,11 +83,36 @@ const Header = memo(() => {
   }, [navigate]);
 
   const handleSearchQueryChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchQuery(e.target.value);
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setSearchQuery(value);
+
+      if (value.trim()) {
+        setIsSearching(true);
+        try {
+          const response = await axios.get(
+            `${
+              import.meta.env.VITE_BACKEND_API_URL
+            }/api/articles/search?keyword=${encodeURIComponent(value)}`
+          );
+          setSearchResults(response.data.responses);
+        } catch (error) {
+          console.error("검색 중 오류 발생:", error);
+          setSearchResults([]);
+        } finally {
+          setIsSearching(false);
+        }
+      } else {
+        setSearchResults([]);
+      }
     },
     []
   );
+
+  const handleClearSearch = useCallback(() => {
+    setSearchQuery("");
+    setSearchResults([]);
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-slate-800 shadow-lg z-50">
@@ -90,7 +152,7 @@ const Header = memo(() => {
           </div>
 
           {/* 검색바 */}
-          <div className="hidden md:block flex-1 max-w-xl mx-8">
+          <div className="hidden md:block flex-1 max-w-xl mx-8 relative">
             <form
               onSubmit={handleSearch}
               className="relative flex items-center"
@@ -102,25 +164,58 @@ const Header = memo(() => {
                 placeholder="검색어를 입력하세요..."
                 className="w-full px-4 py-2 rounded-lg bg-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-500"
               />
-              <button
-                type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-100 focus:outline-none flex items-center justify-center"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              {searchQuery && (
+                <button
+                  onClick={handleClearSearch}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-100 focus:outline-none flex items-center justify-center"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              )}
             </form>
+
+            {/* 검색 결과 */}
+            {searchQuery && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-slate-800 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+                {isSearching ? (
+                  <div className="p-4 text-slate-300 text-center">
+                    검색 중...
+                  </div>
+                ) : searchResults.length > 0 ? (
+                  <ul>
+                    {searchResults.map((result) => (
+                      <li key={result.id}>
+                        <Link
+                          to={`/wiki/${result.id}`}
+                          className="block px-4 py-2 hover:bg-slate-700 text-slate-100"
+                        >
+                          <div className="font-medium">{result.title}</div>
+                          <div className="text-sm text-slate-400">
+                            {getCategoryName(result.category)}
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <div className="p-4 text-slate-300 text-center">
+                    검색 결과가 없습니다.
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* 네비게이션 */}
