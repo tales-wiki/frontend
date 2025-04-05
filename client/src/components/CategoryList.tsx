@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 interface Item {
   id: number;
   title: string;
+  isHiding?: boolean;
 }
 
 interface CategoryListProps {
@@ -174,7 +175,11 @@ const CategoryList = memo(({ title, items, loading }: CategoryListProps) => {
                     <li key={item.id}>
                       <Link
                         to={`/wiki/${item.id}`}
-                        className="hover:text-slate-900 transition-colors"
+                        className={`hover:text-slate-900 transition-colors ${
+                          item.isHiding
+                            ? "pointer-events-none line-through"
+                            : ""
+                        }`}
                       >
                         {item.title}
                       </Link>
@@ -202,7 +207,11 @@ const CategoryList = memo(({ title, items, loading }: CategoryListProps) => {
                     <li key={item.id}>
                       <Link
                         to={`/wiki/${item.id}`}
-                        className="hover:text-slate-900 transition-colors"
+                        className={`hover:text-slate-900 transition-colors ${
+                          item.isHiding
+                            ? "pointer-events-none line-through"
+                            : ""
+                        }`}
                       >
                         {item.title}
                       </Link>
@@ -230,7 +239,11 @@ const CategoryList = memo(({ title, items, loading }: CategoryListProps) => {
                     <li key={item.id}>
                       <Link
                         to={`/wiki/${item.id}`}
-                        className="hover:text-slate-900 transition-colors"
+                        className={`hover:text-slate-900 transition-colors ${
+                          item.isHiding
+                            ? "pointer-events-none line-through"
+                            : ""
+                        }`}
                       >
                         {item.title}
                       </Link>

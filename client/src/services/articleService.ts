@@ -24,6 +24,7 @@ export interface RecentEdit {
   id: number;
   title: string;
   category: string;
+  isHiding: boolean;
   createdAt: string;
 }
 
@@ -37,7 +38,10 @@ export const articleService = {
   createArticle: async (data: ArticleCreateData) => {
     const response = await axios.post(
       `${import.meta.env.VITE_BACKEND_API_URL}/api/articles`,
-      data
+      data,
+      {
+        withCredentials: true,
+      }
     );
     return response;
   },

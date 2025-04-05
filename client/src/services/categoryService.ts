@@ -7,6 +7,7 @@ const API_URL = `${
 export interface CategoryItem {
   id: number;
   title: string;
+  isHiding: boolean;
 }
 
 export interface CategoryResponse {

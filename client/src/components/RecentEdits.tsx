@@ -61,9 +61,19 @@ const RecentEdits = () => {
       <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
       <div className="space-y-4">
         {recentEdits?.map((edit) => (
-          <Link key={edit.id} to={`/wiki/${edit.id}`} className="block">
+          <Link
+            key={edit.id}
+            to={`/wiki/${edit.id}`}
+            className={`block ${edit.isHiding ? "pointer-events-none" : ""}`}
+          >
             <div className="border-b border-slate-400 pb-2">
-              <p className="text-base font-medium">{edit.title}</p>
+              <p
+                className={`text-base font-medium ${
+                  edit.isHiding ? "line-through" : ""
+                }`}
+              >
+                {edit.title}
+              </p>
               <div className="flex items-center gap-2 mt-1">
                 <span
                   className={`px-2 py-1 text-xs rounded-full ${getCategoryStyle(
