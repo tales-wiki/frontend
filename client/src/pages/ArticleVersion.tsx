@@ -83,6 +83,7 @@ const ArticleVersion = () => {
             articleId={id}
             showEditButton={false}
             showHistoryButton={true}
+            showReportButton={false}
           />
 
           {/* 오른쪽 섹션: 최근 편집 내용 */}

@@ -11,6 +11,7 @@ interface ArticleContentProps {
   onNavigate?: (path: string) => void;
   showEditButton?: boolean;
   showHistoryButton?: boolean;
+  showReportButton?: boolean;
   articleId?: string;
 }
 
@@ -27,6 +28,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
   onNavigate,
   showEditButton = true,
   showHistoryButton = true,
+  showReportButton = true,
   articleId,
 }) => {
   const [toc, setToc] = useState<TocItem[]>([]);
@@ -89,14 +91,16 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
             </h1>
             {onNavigate &&
               articleId &&
-              (showEditButton || showHistoryButton) && (
+              (showEditButton || showHistoryButton || showReportButton) && (
                 <div className="flex gap-1.5">
-                  <button
-                    onClick={() => setShowReportModal(true)}
-                    className="px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-red-400 rounded-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 cursor-pointer"
-                  >
-                    신고하기
-                  </button>
+                  {showReportButton && (
+                    <button
+                      onClick={() => setShowReportModal(true)}
+                      className="px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-red-400 rounded-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 cursor-pointer"
+                    >
+                      신고하기
+                    </button>
+                  )}
                   {showHistoryButton && (
                     <button
                       onClick={() => onNavigate(`/wiki/${articleId}/history`)}
