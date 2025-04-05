@@ -3,6 +3,41 @@ import { Editor } from "@toast-ui/react-editor";
 import React, { useEffect } from "react";
 import { useImageUpload } from "../hooks/useImageUpload";
 
+const defaultContent = `# 마크다운 작성 예시
+
+## 텍스트 스타일
+**굵은 글씨**
+*기울임체*
+~~취소선~~
+
+## 목록
+- 순서 없는 목록
+- 두 번째 항목
+  - 들여쓰기된 항목
+
+1. 순서 있는 목록
+2. 두 번째 항목
+
+## 인용문
+> 인용문을 작성할 수 있습니다.
+
+## 코드
+\`\`\`javascript
+console.log('코드 블록 예시');
+\`\`\`
+
+## 표
+| 제목 | 설명 |
+|------|------|
+| 항목1 | 내용1 |
+| 항목2 | 내용2 |
+
+## 링크와 이미지
+[링크 예시](https://example.com)
+![이미지 예시](이미지 URL)
+
+위와 같은 마크다운 문법을 사용하여 글을 작성할 수 있습니다.`;
+
 interface ArticleFormProps {
   title: string;
   nickname: string;
@@ -37,8 +72,8 @@ const ArticleForm = ({
     if (editorRef.current) {
       const editor = editorRef.current.getInstance();
       const currentContent = editor.getMarkdown();
-      if (currentContent !== content) {
-        editor.setMarkdown(content);
+      if (currentContent !== (content || defaultContent)) {
+        editor.setMarkdown(content || defaultContent);
       }
     }
   }, [content]);
