@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import Loading from "./components/Loading";
 import ScrollToTop from "./components/ScrollToTop";
 import { store } from "./store";
 
@@ -27,7 +28,7 @@ function App() {
       <Provider store={store}>
         <Router>
           <Layout>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <AppRoutes />
             </Suspense>
             <ScrollToTop />
