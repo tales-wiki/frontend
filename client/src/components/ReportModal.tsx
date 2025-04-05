@@ -35,13 +35,13 @@ const ReportModal: React.FC<ReportModalProps> = ({ articleId, onClose }) => {
         <div className="flex justify-end gap-2">
           <button
             onClick={onClose}
-            className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+            className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
           >
             취소
           </button>
           <button
             onClick={handleReport}
-            className="w-full bg-red-400 text-white py-2 px-4 rounded-lg hover:bg-red-500 transition-colors"
+            className="w-full bg-red-400 text-white py-2 px-4 rounded-lg hover:bg-red-500 transition-colors cursor-pointer"
           >
             신고하기
           </button>
