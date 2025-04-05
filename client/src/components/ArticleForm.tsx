@@ -124,13 +124,13 @@ const ArticleForm = ({
           />
         </div>
       </div>
-      <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+      <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:gap-1.5">
         <button
           type="button"
           onClick={onCancel}
           className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-md hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
         >
-          취소
+          취소하기
         </button>
         <button
           type="submit"

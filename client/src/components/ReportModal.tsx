@@ -25,7 +25,7 @@ const ReportModal: React.FC<ReportModalProps> = ({ articleId, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full mx-4 border border-gray-100">
-        <h3 className="text-lg font-bold text-gray-800 mb-3">문서 신고</h3>
+        <h3 className="text-lg font-bold text-gray-800 mb-3">게시글 신고</h3>
         <textarea
           className="w-full h-32 p-2 border border-gray-300 rounded-lg mb-4"
           placeholder="신고 사유를 입력해주세요. (최대 100자)"

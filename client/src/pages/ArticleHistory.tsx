@@ -97,7 +97,7 @@ const ArticleHistory = () => {
                 </h1>
                 <button
                   onClick={() => navigate(`/wiki/${id}`)}
-                  className="px-4 py-2 text-sm font-medium text-slate-100 bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
+                  className="px-2.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-slate-100 bg-slate-700 rounded-md hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 cursor-pointer"
                 >
                   돌아가기
                 </button>
