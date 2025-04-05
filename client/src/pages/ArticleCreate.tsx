@@ -12,10 +12,12 @@ const ArticleCreate = () => {
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setShowErrorPopup(false);
 
     try {
       const response = await articleService.createArticle({
@@ -38,6 +40,7 @@ const ArticleCreate = () => {
         console.error("글 작성 중 오류가 발생했습니다:", error);
         setError("글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");
       }
+      setShowErrorPopup(true);
     }
   };
 
@@ -48,9 +51,18 @@ const ArticleCreate = () => {
           <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-slate-800 mb-3 sm:mb-5 lg:mb-8">
             {category === "person" ? "인물사전" : "길드사전"} 작성하기
           </h2>
-          {error && (
-            <div className="mb-4 p-4 bg-red-50 border border-red-200 text-red-600 rounded-md">
-              {error}
+          {showErrorPopup && error && (
+            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+              <div className="bg-white p-6 rounded-xl shadow-lg max-w-md w-full mx-4 border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-800 mb-3">알림</h3>
+                <p className="text-gray-600 mb-4">{error}</p>
+                <button
+                  onClick={() => setShowErrorPopup(false)}
+                  className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  확인
+                </button>
+              </div>
             </div>
           )}
           <ArticleForm
