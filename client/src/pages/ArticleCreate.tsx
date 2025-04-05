@@ -31,39 +31,9 @@ const ArticleCreate = () => {
     } catch (error: unknown) {
       const apiError = error as ApiError;
       if (apiError.response?.status === 400) {
-        const errorCode = apiError.response.data.code;
-        switch (errorCode) {
-          case "ALREADY_WRITTEN_ARTICLE_TITLE_AND_CATEGORY":
-            setError(
-              category === "person"
-                ? "이미 등록된 인물입니다. 다른 닉네임을 사용해주세요."
-                : "이미 등록된 길드입니다. 다른 길드명을 사용해주세요."
-            );
-            break;
-          case "INVALID_ARTICLE_TITLE_LENGTH":
-            setError(
-              category === "person"
-                ? "닉네임 길이가 올바르지 않습니다. (최대 12자)"
-                : "길드명 길이가 올바르지 않습니다. (최대 12자)"
-            );
-            break;
-          case "INVALID_ARTICLE_TITLE":
-            setError(
-              category === "person"
-                ? "닉네임이 올바르지 않습니다."
-                : "길드명이 올바르지 않습니다."
-            );
-            break;
-          case "INVALID_ARTICLE_NICKNAME_LENGTH":
-            setError(
-              category === "person"
-                ? "닉네임 길이가 올바르지 않습니다. (최대 10자)"
-                : "길드명 길이가 올바르지 않습니다. (최대 10자)"
-            );
-            break;
-          default:
-            setError(apiError.response.data.message);
-        }
+        setError(apiError.response.data.message);
+      } else if (apiError.response?.status === 401) {
+        setError("로그인이 필요합니다.");
       } else {
         console.error("글 작성 중 오류가 발생했습니다:", error);
         setError("글 작성 중 오류가 발생했습니다. 다시 시도해주세요.");

@@ -4,11 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import ArticleContent from "../components/ArticleContent";
 import RecentEdits from "../components/RecentEdits";
 import { Article, articleService } from "../services/articleService";
+import { ApiError } from "../types/api";
 
 const ArticleView = () => {
   const { id } = useParams<{ id: string }>();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +20,15 @@ const ArticleView = () => {
         const data = await articleService.getArticle(id!);
         setArticle(data);
       } catch (err) {
-        console.error("Error fetching article:", err);
+        const apiError = err as ApiError;
+        if (apiError.response?.data?.code === "HIDING_ARTICLE") {
+          setError("이 게시글은 숨김 처리되어 있습니다.");
+          setTimeout(() => {
+            navigate(-1);
+          }, 2000);
+        } else {
+          console.error("Error fetching article:", err);
+        }
       } finally {
         setLoading(false);
       }
@@ -27,12 +37,30 @@ const ArticleView = () => {
     if (id) {
       fetchArticle();
     }
-  }, [id]);
+  }, [id, navigate]);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="text-xl">로딩 중...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen px-4">
+        <div className="bg-white rounded-lg border border-slate-800 p-6 sm:p-8 shadow-lg w-full max-w-md text-center">
+          <div className="text-3xl sm:text-4xl font-bold text-red-600 mb-4">
+            ⚠️
+          </div>
+          <div className="text-lg sm:text-xl font-semibold text-slate-800 mb-3">
+            {error}
+          </div>
+          <div className="text-sm sm:text-base text-slate-500">
+            잠시 후 이전 페이지로 돌아갑니다.
+          </div>
+        </div>
       </div>
     );
   }

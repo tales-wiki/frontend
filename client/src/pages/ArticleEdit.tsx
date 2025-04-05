@@ -51,14 +51,9 @@ const ArticleEdit: React.FC = () => {
     } catch (error: unknown) {
       const apiError = error as ApiError;
       if (apiError.response?.status === 400) {
-        const errorCode = apiError.response.data.code;
-        switch (errorCode) {
-          case "INVALID_ARTICLE_NICKNAME_LENGTH":
-            setError("닉네임 길이가 올바르지 않습니다. (최대 10자)");
-            break;
-          default:
-            setError(apiError.response.data.message);
-        }
+        setError(apiError.response.data.message);
+      } else if (apiError.response?.status === 401) {
+        setError("로그인이 필요합니다.");
       } else {
         console.error("글 수정 중 오류가 발생했습니다:", error);
         setError("글 수정 중 오류가 발생했습니다. 다시 시도해주세요.");
