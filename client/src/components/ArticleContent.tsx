@@ -13,6 +13,7 @@ interface ArticleContentProps {
   showHistoryButton?: boolean;
   showReportButton?: boolean;
   articleId?: string;
+  loading?: boolean;
 }
 
 interface TocItem {
@@ -30,6 +31,7 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
   showHistoryButton = true,
   showReportButton = true,
   articleId,
+  loading,
 }) => {
   const [toc, setToc] = useState<TocItem[]>([]);
   const [showReportModal, setShowReportModal] = useState(false);
@@ -80,6 +82,23 @@ const ArticleContent: React.FC<ArticleContentProps> = ({
     });
     setToc(tocItems);
   }, [content]);
+
+  if (loading) {
+    return (
+      <div className="w-full lg:flex-[5]">
+        <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-12">
+          <div className="h-8 w-3/4 bg-gray-200 rounded animate-pulse mb-4"></div>
+          <div className="h-4 w-1/2 bg-gray-200 rounded animate-pulse mb-8"></div>
+          <div className="space-y-3">
+            <div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div>
+            <div className="h-4 w-5/6 bg-gray-200 rounded animate-pulse"></div>
+            <div className="h-4 w-4/6 bg-gray-200 rounded animate-pulse"></div>
+            <div className="h-4 w-3/6 bg-gray-200 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full lg:flex-[5]">

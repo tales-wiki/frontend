@@ -62,8 +62,58 @@ const ArticleHistory = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-xl">로딩 중...</div>
+      <div className="container mx-auto px-0 md:px-4 lg:px-4 py-6 lg:py-8">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+          <div className="w-full lg:flex-[5]">
+            <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-12">
+              <div className="flex justify-between items-center mb-5 lg:mb-8">
+                <div className="h-8 w-32 bg-gray-200 rounded animate-pulse"></div>
+                <div className="h-8 w-20 bg-gray-200 rounded animate-pulse"></div>
+              </div>
+              <div className="h-8 w-3/4 bg-gray-200 rounded animate-pulse mb-5"></div>
+
+              <div className="space-y-4">
+                {/* 헤더 스켈레톤 */}
+                <div className="hidden md:grid grid-cols-4 gap-4 p-4 bg-slate-100 rounded-lg">
+                  <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
+                  <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+
+                {/* 목록 스켈레톤 */}
+                {[...Array(5)].map((_, index) => (
+                  <div
+                    key={index}
+                    className="border border-slate-400 rounded-lg p-4"
+                  >
+                    <div className="md:hidden">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
+                        <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+                      </div>
+                      <div className="space-y-2">
+                        <div className="h-4 w-40 bg-gray-200 rounded animate-pulse"></div>
+                        <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                      </div>
+                    </div>
+                    <div className="hidden md:grid grid-cols-4 gap-4">
+                      <div className="h-4 w-8 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="h-4 w-48 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+                      <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 오른쪽 섹션 */}
+          <div className="w-full lg:flex-[1]">
+            <RecentEdits />
+          </div>
+        </div>
       </div>
     );
   }

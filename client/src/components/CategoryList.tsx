@@ -145,7 +145,63 @@ const CategoryList = memo(({ title, items, loading }: CategoryListProps) => {
     return title === "인물사전" ? "/wiki/create/person" : "/wiki/create/guild";
   }, [title]);
 
-  if (loading) return <div className="text-center py-4">로딩 중...</div>;
+  if (loading) {
+    return (
+      <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-12">
+        <div className="flex justify-between items-center mb-5 lg:mb-8">
+          <div className="h-8 w-32 bg-gray-200 rounded animate-pulse"></div>
+          <div className="h-8 w-20 bg-gray-200 rounded animate-pulse"></div>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+          {/* 한글 자음 그룹 */}
+          {[...Array(14)].map((_, index) => (
+            <div key={index}>
+              <div className="h-6 w-8 bg-gray-200 rounded animate-pulse mb-2"></div>
+              <ul className="list-none pl-0 space-y-1">
+                {[...Array(3)].map((_, itemIndex) => (
+                  <li key={itemIndex}>
+                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* 구분선 */}
+          <div className="col-span-2 lg:col-span-6 w-full h-4"></div>
+
+          {/* 영문 알파벳 그룹 */}
+          {[...Array(26)].map((_, index) => (
+            <div key={`alpha-${index}`}>
+              <div className="h-6 w-8 bg-gray-200 rounded animate-pulse mb-2"></div>
+              <ul className="list-none pl-0 space-y-1">
+                {[...Array(2)].map((_, itemIndex) => (
+                  <li key={itemIndex}>
+                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {/* 구분선 */}
+          <div className="col-span-2 lg:col-span-6 w-full h-4"></div>
+
+          {/* 숫자 그룹 */}
+          {[...Array(10)].map((_, index) => (
+            <div key={`num-${index}`}>
+              <div className="h-6 w-8 bg-gray-200 rounded animate-pulse mb-2"></div>
+              <ul className="list-none pl-0 space-y-1">
+                <li>
+                  <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                </li>
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-12">

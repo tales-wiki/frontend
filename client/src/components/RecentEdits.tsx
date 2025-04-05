@@ -49,9 +49,19 @@ const RecentEdits = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border border-slate-400 p-5 lg:p-6">
-        <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
-        <p>로딩 중...</p>
+      <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-6">
+        <div className="h-6 w-24 bg-gray-200 rounded animate-pulse mb-4"></div>
+        <div className="space-y-4">
+          {[...Array(5)].map((_, index) => (
+            <div key={index} className="border-b border-slate-300 pb-2">
+              <div className="h-5 w-3/4 bg-gray-200 rounded animate-pulse"></div>
+              <div className="flex items-center gap-2 mt-1">
+                <div className="h-5 w-12 bg-gray-200 rounded-full animate-pulse"></div>
+                <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
