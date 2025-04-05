@@ -90,7 +90,7 @@ const ArticleHistory = () => {
       {history && (
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           <div className="w-full lg:flex-[5]">
-            <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-12">
+            <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-12">
               <div className="flex justify-between items-center mb-5 lg:mb-8">
                 <h1 className="text-2xl lg:text-4xl font-bold text-slate-800">
                   편집 로그
@@ -117,7 +117,7 @@ const ArticleHistory = () => {
                 {history.responses.map((response) => (
                   <div
                     key={response.version}
-                    className="border rounded-lg hover:bg-slate-50 cursor-pointer overflow-hidden"
+                    className="border border-slate-400 rounded-lg hover:bg-slate-50 cursor-pointer overflow-hidden"
                     onClick={() =>
                       navigate(`/wiki/${id}/version/${response.version}`)
                     }

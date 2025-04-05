@@ -16,7 +16,7 @@ const Home = () => {
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         {/* 왼쪽 섹션: 안내문 내용 */}
         <div className="w-full lg:flex-[5]">
-          <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-12">
+          <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-12">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-slate-800 tracking-tight">
               안내문
             </h2>

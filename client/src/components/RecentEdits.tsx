@@ -49,7 +49,7 @@ const RecentEdits = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border border-slate-800 p-5 lg:p-6">
+      <div className="bg-white rounded-none md:rounded-lg lg:rounded-lg border border-slate-400 p-5 lg:p-6">
         <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
         <p>로딩 중...</p>
       </div>
@@ -57,7 +57,7 @@ const RecentEdits = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-slate-800 p-5 lg:p-6">
+    <div className="bg-white rounded-lg border border-slate-400 p-5 lg:p-6">
       <h2 className="text-xl lg:text-xl font-semibold mb-4">최근 편집</h2>
       <div className="space-y-4">
         {recentEdits?.map((edit) => (
@@ -66,7 +66,7 @@ const RecentEdits = () => {
             to={`/wiki/${edit.id}`}
             className={`block ${edit.isHiding ? "pointer-events-none" : ""}`}
           >
-            <div className="border-b border-slate-400 pb-2">
+            <div className="border-b border-slate-300 pb-2">
               <p
                 className={`text-base font-medium ${
                   edit.isHiding ? "line-through" : ""

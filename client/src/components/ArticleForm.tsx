@@ -105,7 +105,7 @@ const ArticleForm = ({
             value={title}
             onChange={(e) => onTitleChange(e.target.value)}
             readOnly={isTitleReadOnly}
-            className={`w-full px-3 py-2 border border-slate-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-slate-700 ${
+            className={`w-full px-3 py-2 border border-slate-400 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-slate-700 ${
               isTitleReadOnly ? "bg-slate-100" : ""
             }`}
             required
@@ -123,7 +123,7 @@ const ArticleForm = ({
             id="nickname"
             value={nickname}
             onChange={(e) => onNicknameChange(e.target.value)}
-            className="w-full px-3 py-2 border border-slate-700 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-slate-700"
+            className="w-full px-3 py-2 border border-slate-400 border-opacity-50 rounded-md focus:outline-none focus:ring-1 focus:ring-slate-700"
             required
           />
         </div>
@@ -135,7 +135,7 @@ const ArticleForm = ({
         >
           내용
         </label>
-        <div className="border border-slate-700 border-opacity-50 rounded-md">
+        <div className="border border-slate-400 border-opacity-50 rounded-md">
           <Editor
             ref={editorRef}
             initialValue={content}
