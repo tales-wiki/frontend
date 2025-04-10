@@ -1,5 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
+import AdminRouteGuard from "./components/AdminRouteGuard";
 import ArticleEditor from "./components/ArticleEditor";
 import ArticleViewer from "./components/ArticleViewer";
 import ArticleWriter from "./components/ArticleWriter";
@@ -42,7 +43,14 @@ function App() {
               path="/articles/:id/versions"
               element={<ArticleVersionHistory />}
             />
-            <Route path="/admin" element={<Admin />} />
+            <Route
+              path="/admin"
+              element={
+                <AdminRouteGuard>
+                  <Admin />
+                </AdminRouteGuard>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
