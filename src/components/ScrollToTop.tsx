@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
 
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
@@ -25,6 +27,11 @@ const ScrollToTop = () => {
       window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
+
+  // 페이지 이동 시 스크롤을 맨 위로 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="fixed bottom-8 right-8">
