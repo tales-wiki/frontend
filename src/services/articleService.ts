@@ -117,3 +117,20 @@ export const getRecentEdits = async () => {
     throw handleApiError(error);
   }
 };
+
+export const uploadImage = async (imageFile: Blob): Promise<string> => {
+  try {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const response = await axios.post(`${API_URL}/images/upload`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return response.data.url;
+  } catch (error) {
+    throw handleApiError(error);
+  }
+};

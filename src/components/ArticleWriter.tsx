@@ -2,12 +2,28 @@ import Editor from "@toast-ui/editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { createArticle } from "../services/articleService";
+import { createArticle, uploadImage } from "../services/articleService";
 import { handleApiError } from "../utils/errorHandler";
 import PageLayout from "./layouts/PageLayout";
 
+const S3_BUCKET_URL = import.meta.env.VITE_S3_BUCKET_URL;
+
 interface ArticleWriterProps {
   category: string;
+}
+
+interface EditorConfig {
+  el: HTMLElement;
+  height: string;
+  initialEditType: "markdown" | "wysiwyg";
+  previewStyle: "vertical" | "tab";
+  placeholder: string;
+  hooks: {
+    addImageBlobHook: (
+      blob: Blob,
+      callback: (url: string, altText: string) => void
+    ) => Promise<void>;
+  };
 }
 
 const ArticleWriter = ({ category }: ArticleWriterProps) => {
@@ -20,13 +36,28 @@ const ArticleWriter = ({ category }: ArticleWriterProps) => {
 
   useEffect(() => {
     if (editorRef.current) {
-      editorInstance.current = new Editor({
+      const options: EditorConfig = {
         el: editorRef.current,
         height: "500px",
         initialEditType: "markdown",
         previewStyle: "vertical",
         placeholder: "문서 내용을 입력하세요",
-      });
+        hooks: {
+          addImageBlobHook: async (
+            blob: Blob,
+            callback: (url: string, altText: string) => void
+          ) => {
+            try {
+              const imageUrl = await uploadImage(blob);
+              callback(`${S3_BUCKET_URL}/${imageUrl}`, "이미지");
+            } catch (error) {
+              console.error("이미지 업로드 실패:", error);
+              callback("이미지 업로드에 실패했습니다.", "이미지");
+            }
+          },
+        },
+      };
+      editorInstance.current = new Editor(options);
     }
 
     return () => {
