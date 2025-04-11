@@ -1,12 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Article, getArticlesByCategory } from "../services/articleService";
 import PageLayout from "./layouts/PageLayout";
-
-interface Article {
-  articleVersionId: number;
-  title: string;
-}
 
 interface DictionaryProps {
   category: string;
@@ -40,10 +35,8 @@ const Dictionary = ({ category, title }: DictionaryProps) => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/articles/categories/${category}`
-        );
-        setArticles(response.data.payload);
+        const fetchedArticles = await getArticlesByCategory(category);
+        setArticles(fetchedArticles);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }

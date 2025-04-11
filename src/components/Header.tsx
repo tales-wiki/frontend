@@ -76,7 +76,7 @@ const Header = () => {
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="text-slate-300 hover:text-white transition-colors text-sm"
+                className="text-slate-300 hover:text-white transition-colors text-sm cursor-pointer"
               >
                 로그아웃
               </button>
@@ -123,7 +123,7 @@ const Header = () => {
                   handleLogout();
                   setIsMenuOpen(false);
                 }}
-                className="text-slate-300 hover:text-white hover:bg-slate-700 py-2 px-3 rounded-lg transition-colors text-sm text-center w-full"
+                className="text-slate-300 hover:text-white hover:bg-slate-700 py-2 px-3 rounded-lg transition-colors text-sm text-center w-full cursor-pointer"
               >
                 로그아웃
               </button>

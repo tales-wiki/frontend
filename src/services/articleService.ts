@@ -134,3 +134,17 @@ export const uploadImage = async (imageFile: Blob): Promise<string> => {
     throw handleApiError(error);
   }
 };
+
+export const getArticlesByCategory = async (
+  category: string
+): Promise<Article[]> => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_URL}/articles/categories/${category}`
+    );
+    return response.data.payload;
+  } catch (error) {
+    console.error("Error fetching articles:", error);
+    throw error;
+  }
+};
