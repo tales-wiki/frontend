@@ -10,8 +10,6 @@ import {
 import { handleApiError } from "../utils/errorHandler";
 import PageLayout from "./layouts/PageLayout";
 
-const S3_BUCKET_URL = import.meta.env.VITE_S3_BUCKET_URL;
-
 interface Article {
   articleId: number;
   articleVersionId: number;
@@ -74,7 +72,10 @@ const ArticleEditor = () => {
           ) => {
             try {
               const imageUrl = await uploadImage(blob);
-              callback(`${S3_BUCKET_URL}/${imageUrl}`, "이미지");
+              callback(
+                `${import.meta.env.VITE_IMAGE_LOCAL_URL}/${imageUrl}`,
+                "이미지"
+              );
             } catch (error) {
               console.error("이미지 업로드 실패:", error);
               callback("이미지 업로드에 실패했습니다.", "이미지");
