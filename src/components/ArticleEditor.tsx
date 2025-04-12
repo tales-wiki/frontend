@@ -8,7 +8,9 @@ import {
   uploadImage,
 } from "../services/articleService";
 import { handleApiError } from "../utils/errorHandler";
+import { throttle } from "../utils/throttle";
 import PageLayout from "./layouts/PageLayout";
+import LoadingOverlay from "./LoadingOverlay";
 
 interface Article {
   articleId: number;
@@ -42,6 +44,7 @@ const ArticleEditor = () => {
   const [author, setAuthor] = useState("");
   const editorRef = useRef<HTMLDivElement>(null);
   const editorInstance = useRef<Editor | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -59,6 +62,31 @@ const ArticleEditor = () => {
 
   useEffect(() => {
     if (article && editorRef.current) {
+      const throttledUploadImage = throttle(
+        async (
+          blob: Blob,
+          callback: (url: string, altText: string) => void
+        ) => {
+          try {
+            setIsUploading(true);
+            const imageUrl = await uploadImage(blob);
+            callback(
+              `${import.meta.env.VITE_IMAGE_LOCAL_URL}/${imageUrl}`,
+              "이미지"
+            );
+          } catch (error) {
+            console.error("이미지 업로드 실패:", error);
+            callback("이미지 업로드에 실패했습니다.", "이미지");
+          } finally {
+            setIsUploading(false);
+          }
+        },
+        5000
+      ) as (
+        blob: Blob,
+        callback: (url: string, altText: string) => void
+      ) => Promise<void>;
+
       const options: EditorConfig = {
         el: editorRef.current,
         height: "500px",
@@ -66,21 +94,7 @@ const ArticleEditor = () => {
         previewStyle: "vertical",
         initialValue: article.content,
         hooks: {
-          addImageBlobHook: async (
-            blob: Blob,
-            callback: (url: string, altText: string) => void
-          ) => {
-            try {
-              const imageUrl = await uploadImage(blob);
-              callback(
-                `${import.meta.env.VITE_IMAGE_LOCAL_URL}/${imageUrl}`,
-                "이미지"
-              );
-            } catch (error) {
-              console.error("이미지 업로드 실패:", error);
-              callback("이미지 업로드에 실패했습니다.", "이미지");
-            }
-          },
+          addImageBlobHook: throttledUploadImage,
         },
       };
       editorInstance.current = new Editor(options);
@@ -128,6 +142,7 @@ const ArticleEditor = () => {
 
   return (
     <PageLayout title="편집하기" showCreateButton={false}>
+      {isUploading && <LoadingOverlay message="이미지를 업로드중입니다..." />}
       <div className="flex flex-col min-h-screen">
         <form onSubmit={handleSave}>
           <div className="mb-4">
